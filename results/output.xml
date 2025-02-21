@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.12.9 on win32)" generated="2025-02-18T15:44:48.990012" rpa="false" schemaversion="5">
+<suite id="s1" name="Robot Framework" source="E:\Profissional\Programacao\Robot Framework">
+<suite id="s1-s1" name="Test0" source="E:\Profissional\Programacao\Robot Framework\test0.robot">
+<test id="s1-s1-t1" name="Should send keys to search box and then check the value" line="12">
+<kw name="Open Test Application">
+<kw name="Open Application" owner="AppiumLibrary">
+<kw name="Capture Page Screenshot" owner="AppiumLibrary">
+<msg time="2025-02-18T15:44:54.600591" level="FAIL">No application is open</msg>
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<status status="FAIL" start="2025-02-18T15:44:54.600069" elapsed="0.236906">No application is open</status>
+</kw>
+<msg time="2025-02-18T15:44:54.839195" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
+<msg time="2025-02-18T15:44:54.842280" level="FAIL">AttributeError: 'NoneType' object has no attribute 'ca_certs'</msg>
+<arg>http://127.0.0.1:4723/wd/hub</arg>
+<arg>automationName=${ANDROID_AUTOMATION_NAME}</arg>
+<arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>platformVersion=${ANDROID_PLATFORM_VERSION}</arg>
+<arg>app=${ANDROID_APP}</arg>
+<arg>appPackage=io.appium.android.apis</arg>
+<arg>appActivity=.app.SearchInvoke</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://appium.io/docs/en/2.1/cli/args/
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="FAIL" start="2025-02-18T15:44:54.597649" elapsed="0.245720">AttributeError: 'NoneType' object has no attribute 'ca_certs'</status>
+</kw>
+<status status="FAIL" start="2025-02-18T15:44:54.595738" elapsed="0.248642">AttributeError: 'NoneType' object has no attribute 'ca_certs'</status>
+</kw>
+<kw name="Input Search Query">
+<arg>Hello World!</arg>
+<status status="NOT RUN" start="2025-02-18T15:44:54.844380" elapsed="0.001000"/>
+</kw>
+<kw name="Submit Search">
+<status status="NOT RUN" start="2025-02-18T15:44:54.845380" elapsed="0.000000"/>
+</kw>
+<kw name="Search Query Should Be Matching">
+<arg>Hello World!</arg>
+<status status="NOT RUN" start="2025-02-18T15:44:54.845380" elapsed="0.000999"/>
+</kw>
+<status status="FAIL" start="2025-02-18T15:44:54.592369" elapsed="0.254010">AttributeError: 'NoneType' object has no attribute 'ca_certs'</status>
+</test>
+<doc>Simple example using AppiumLibrary</doc>
+<status status="FAIL" start="2025-02-18T15:44:49.540307" elapsed="5.325188"/>
+</suite>
+<status status="FAIL" start="2025-02-18T15:44:49.015944" elapsed="6.178171"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Robot Framework" id="s1" pass="0" fail="1" skip="0">Robot Framework</stat>
+<stat name="Test0" id="s1-s1" pass="0" fail="1" skip="0">Robot Framework.Test0</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-02-18T15:44:54.839195" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
+</errors>
+</robot>
