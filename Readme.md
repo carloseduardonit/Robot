@@ -1,20 +1,20 @@
-# Estudos de Automação de Testes com Robot Framework - Avançado
+# Estudos de Automação de Testes com Robot Framework - Basico ao Avançado
 
-Configuração de variaveis
+## Configuração de variaveis
 
-- Verificar a  versão do Python:
+- **Verificar a  versão do Python:**
 
 ``` dos
     python -v
 ```
 
-- Verificar  biblioteca instalada:
+- **Verificar  biblioteca instalada:**
 
 ``` dos
     pip freeze
 ```
 
-- Instalar Robot Framework e Verificar a versão do Robot Framework:
+- **Instalar Robot Framework e Verificar a versão do Robot Framework:**
 
 ``` dos
     pip install robotframework
