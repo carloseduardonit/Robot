@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation    Suite de testes para o Salesforce
 Variables     Variaveis.py
 Library    SeleniumLibrary
 Resource    resources/keywords.robot
@@ -9,6 +10,8 @@ ${Lembra-me}    //*[@id="rememberUn"]
 
 *** Test Cases ***
 Login do usuario no sistema
+    [Documentation]    Teste de login no sistema
+    [Tags]    login_Administrador 
     Open Browser     ${url}     chrome
     Input Text    username    ${admin}
     Input Password    password    ${senha}

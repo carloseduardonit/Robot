@@ -1,10 +1,13 @@
 *** Settings ***
+Documentation    Suite de testes para o site The Internet
 Library    SeleniumLibrary
 Library    OperatingSystem
     
 
 *** Test Cases ***
 Login with correct Username and Password
+    [Documentation]    Teste de login com usuario e senha corretos
+    [Tags]    login
     Open Browser    url=https://the-internet.herokuapp.com/login    browser=chrome
     Input Text    username    tomsmith
     Input Text    password    SuperSecretPassword!
@@ -14,7 +17,9 @@ Login with correct Username and Password
     Close Browser
 
 Add Tasks And Set To Complete
-    Open Browser    https://todomvc.com/examples/angular/dist/browser/#  
+    [Documentation]    Teste de adicionar tarefas e marcar como completas
+    [Tags]    todo
+    Open Browser    https://todomvc.com/examples/angular/dist/browser/#/    chrome
     Input Text    css:.new-todo    Complete Robot Framework Training
     Press Keys    css:.new-todo    RETURN
     Input Text    css:.new-todo    Write Automated Tests
