@@ -25,7 +25,10 @@
 
 - [Biblioteca do Pytron](https://pypi.org/)
 - [Site oficial](https://robotframework.org/)
-- driver
+- TruePath
+  - [chromewebstore](https://chromewebstore.google.com/detail/truepath/mgjhkhhbkkldiihlajcnlfchfcmhipmn?hl=pt)
+  - [addons.mozilla](https://addons.mozilla.org/pt-BR/firefox/addon/truepath/)
+- Driver
   - [chromedriver 32](https://storage.googleapis.com/chrome-for-testing-public/132.0.6834.83/win32/chromedriver-win32.zip)
   - [chromedriver 64](https://storage.googleapis.com/chrome-for-testing-public/132.0.6834.83/win64/chromedriver-win64.zip)
   - [geckodriver 32](https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-win32.zip)

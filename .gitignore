@@ -6,3 +6,4 @@
 __pycache__/
 settings.json
 variaveis.py
+/selenium-screenshot-*.png
