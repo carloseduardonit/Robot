@@ -1,4 +1,18 @@
 # Estudos de Automação de Testes com Robot Framework - Basico ao Avançado
+![.Env](https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black)
+[](https://github.com/carloseduardonit/Robot/tree/main)
+## Curso de Robot
+
+### Backlog
+- [ ] [Robot Framework: automatizando testes no padrão BDD](https://cursos.alura.com.br/course/robot-framework-testes-padrao-bdd)
+
+### To Do
+- [ ] [Automação de Testes com Robot Framework - Avançado](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-avancado/?couponCode=KEEPLEARNINGBR)
+
+### In Progress
+- [ ] [Automação de Testes com Robot Framework - Básico](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-basico/?couponCode=KEEPLEARNINGBR)
+
+
 
 ## Configuração de variaveis
 
