@@ -6,9 +6,10 @@
 ![alt text](https://img.shields.io/badge/gitignore.io-204ECF.svg?style=for-the-badge&logo=gitignoredotio&logoColor=white)
 ![alt text](https://img.shields.io/badge/Amazon-FF9900.svg?style=for-the-badge&logo=Amazon&logoColor=white)
 ![alt text](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+![alt text](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
 
 ## Curso de Robot ![alt text](https://img.shields.io/badge/Robot%20Framework-000000.svg?style=for-the-badge&logo=Robot-Framework&logoColor=white)
-
+![alt text](https://img.shields.io/badge/Udemy-A435F0.svg?style=for-the-badge&logo=Udemy&logoColor=white)
 
 ### Backlog
 - [ ] [Robot Framework: automatizando testes no padrão BDD](https://cursos.alura.com.br/course/robot-framework-testes-padrao-bdd)
