@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation    Suite de testes para o Salesforce
-Variables     ../Variaveis.py
 Library    SeleniumLibrary
-Resource    resources/keywords.robot
-Resource    resources/variables.robot
+Variables  ../../resources/Variaveis.py
+Resource    ../../resources/keywords.robot
+Resource    ../../resources/variables.robot
 
 *** Variables ***
 ${Lembra-me}    //*[@id="rememberUn"]
