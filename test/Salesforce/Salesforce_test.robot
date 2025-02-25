@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Suite de testes para o Salesforce
-Variables     Variaveis.py
+Variables     ../Variaveis.py
 Library    SeleniumLibrary
 Resource    resources/keywords.robot
 Resource    resources/variables.robot
