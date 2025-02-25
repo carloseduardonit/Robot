@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Variables   ../linkedin.py
+Variables   ../test/Linkedin/linkedin.py
 
 *** Variables ***
 ${job} =    "QA"

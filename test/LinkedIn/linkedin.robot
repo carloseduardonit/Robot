@@ -42,7 +42,7 @@ Clique na vaga Home Office
     Wait Until Element Is Visible    locator=${botao.homeOffice}    timeout=15
     Click Button  ${botao.homeOffice}
 #    Click Element    locator=${combo.homeOffice}
-    Select Checkbox    locator=${combo.homeOffice}
+#   Select Checkbox    locator=${combo.homeOffice}
     Sleep    150
     Capture Page Screenshot
 

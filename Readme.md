@@ -21,7 +21,7 @@
 - [ ] [Automação de Testes com Robot Framework - Básico](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-basico/?couponCode=KEEPLEARNINGBR)
 
 
-## Configuração de variaveis
+## Configurações
 
 - **Verificar a  versão do Python:**
 
