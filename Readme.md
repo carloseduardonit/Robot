@@ -29,12 +29,6 @@
 - **results/**: Diretório onde os resultados das execuções são armazenados.
 - `README.md`: Documentação do projeto.
 
-
-bash
-Copiar
-Editar
-
-
 ## Configurações
 
 ### Python
