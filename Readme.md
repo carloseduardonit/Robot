@@ -20,14 +20,15 @@
 ### In Progress
 - [ ] [Automação de Testes com Robot Framework - Básico](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-basico/?couponCode=KEEPLEARNINGBR)
 
-## 📂 Estrutura do Projeto  
-📁 Robot
-┣ 📂 tests
-┃ ┗ 📜 linkedin_search.robot # Script principal de automação
-┣ 📂 resources
-┃ ┗ 📜 keywords.robot # Keywords personalizadas
-┣ 📂 results
-┗ 📜 README.md # Documentação do projeto
+## 📂 Estrutura do Projeto
+
+- **tests/**: Contém os casos de teste.
+  - `Linkedin/linkedin.robot`: Script principal de automação.
+- **resources/**: Armazena recursos auxiliares.
+  - `keywords.robot`: Conjunto de palavras-chave personalizadas.
+- **results/**: Diretório onde os resultados das execuções são armazenados.
+- `README.md`: Documentação do projeto.
+
 
 bash
 Copiar
