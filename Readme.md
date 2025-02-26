@@ -20,9 +20,23 @@
 ### In Progress
 - [ ] [Automação de Testes com Robot Framework - Básico](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-basico/?couponCode=KEEPLEARNINGBR)
 
+## 📂 Estrutura do Projeto  
+📁 Robot
+┣ 📂 tests
+┃ ┗ 📜 linkedin_search.robot # Script principal de automação
+┣ 📂 resources
+┃ ┗ 📜 keywords.robot # Keywords personalizadas
+┣ 📂 results
+┗ 📜 README.md # Documentação do projeto
+
+bash
+Copiar
+Editar
+
 
 ## Configurações
 
+### Python
 - **Verificar a  versão do Python:**
 
 ``` dos
@@ -40,6 +54,13 @@
 ``` dos
     pip install robotframework
     robot --version
+```
+
+## 🚀 Como Executar  
+
+1. **Clone este repositório**  
+```sh
+   git clone https://github.com/carloseduardonit/Robot.git
 ```
 
 ## Biblioteca
