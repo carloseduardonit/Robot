@@ -52,8 +52,24 @@
 ```
 ###
 ### Robot Framework
+**Executar a suite de teste do Amazon**
+``` dos
+    robot '.\test\Amazon\Amazon_test.robot'
+```
+
+**Executar a suite de teste do Linkedin**
+``` dos
+    robot '.\test\LinkedIn\linkedin.robot'
+```
+**Executar a suite de teste do Salesforce**
+``` dos
+    robot '.\test\Salesforce\Salesforce.robot'
+```
+
 
 ## 🚀 Como Executar  
+``` dos
+```
 
 1. **Clone este repositório**  
 ```sh

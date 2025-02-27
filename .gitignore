@@ -8,3 +8,5 @@ settings.json
 variaveis.py
 /selenium-screenshot-*.png
 /test/Linkedin/linkedin.py
+geckodriver-*.log
+interactive_console_output.xml
