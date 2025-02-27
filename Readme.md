@@ -29,7 +29,7 @@
 - **results/**: Diretório onde os resultados das execuções são armazenados.
 - `README.md`: Documentação do projeto.
 
-## Configurações
+## ⚙️ Configurações
 
 ### Python
 - **Verificar a  versão do Python:**
@@ -50,6 +50,8 @@
     pip install robotframework
     robot --version
 ```
+###
+### Robot Framework
 
 ## 🚀 Como Executar  
 
