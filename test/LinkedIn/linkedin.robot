@@ -16,8 +16,8 @@ ${botao.vagaSimplificada}   (//span[@class='artdeco-button__text'][contains(.,'C
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
 ${botao.avancar}    (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
-${teste}    
-    
+${progresso}   //progress
+${progresso.valor}  0
 *** Keywords ***
 Linkedin Job Search
     [Documentation]    Search for a job on Linkedin
@@ -53,9 +53,16 @@ Faça a Candidatura da vaga simplificada
     [Tags]    Linkedin
     Wait Until Element Is Visible    locator=${botao.vagaSimplificada}    timeout=15
     Click Element  ${botao.vagaSimplificada}
-    Wait Until Element Is Visible   ${botao.avancar}   timeout=15
-    Click Element    ${botao.avancar}
     Capture Page Screenshot
+    ${progresso.valor} =    Get Element Attribute    ${progresso}    value    
+    WHILE    ${progresso.valor} < 100
+        Wait Until Element Is Visible   ${botao.avancar}   timeout=15
+        Click Element    ${botao.avancar}
+        Capture Page Screenshot
+        ${progresso.valor} =    Get Element Attribute    ${progresso}    value
+        Sleep    5
+    END
+    
     
 
 *** Test Cases ***
