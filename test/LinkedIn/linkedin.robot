@@ -16,8 +16,12 @@ ${botao.vagaSimplificada}   (//span[@class='artdeco-button__text'][contains(.,'C
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
 ${botao.avancar}    (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
+${botao.revisar}    (//span[@class='artdeco-button__text'][contains(.,Revisar)])
+${boto.enviarCandidatura}   (//span[@class='artdeco-button__text'][contains(.,Enviar candidatura)])
 ${progresso}   //progress
+# variaveis 
 ${progresso.valor}  0
+${contador}    - 1
 *** Keywords ***
 Linkedin Job Search
     [Documentation]    Search for a job on Linkedin
@@ -56,13 +60,23 @@ Faça a Candidatura da vaga simplificada
     Capture Page Screenshot
     ${progresso.valor} =    Get Element Attribute    ${progresso}    value    
     WHILE    ${progresso.valor} < 100
-        Wait Until Element Is Visible   ${botao.avancar}   timeout=15
-        Click Element    ${botao.avancar}
-        Capture Page Screenshot
-        ${progresso.valor} =    Get Element Attribute    ${progresso}    value
-        Sleep    5
+        Manipular Element   ${botao.avancar}  
+       # Manipular Element   ${botao.revisar}
+       # Manipular Element   ${boto.enviarCandidatura}
+        ${progresso.valor} =  Get Element Attribute    ${progresso}    value
+        Sleep    15
     END
     
+Manipular Element
+    [Arguments]   ${elemento}
+    ${contador} =  Set Variable    0
+    ${contador} =  Get Element Count    ${elemento}
+    IF    ${contador} > 0
+        Wait Until Element Is Visible    locator=${elemento}    timeout=15
+        Capture Element Screenshot    ${elemento}
+        Click Element    ${elemento}    
+        Capture Page Screenshot
+    END
     
 
 *** Test Cases ***

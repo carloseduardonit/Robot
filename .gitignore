@@ -10,3 +10,4 @@ variaveis.py
 /test/Linkedin/linkedin.py
 geckodriver-*.log
 interactive_console_output.xml
+selenium-element-screenshot-*.png
