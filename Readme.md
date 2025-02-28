@@ -47,8 +47,12 @@
 - **Instalar Robot Framework e Verificar a versão do Robot Framework:**
 
 ``` dos
-    pip install robotframework
+    pip install --upgrade robotframework
     robot --version
+```
+- **Instalar ou Atualizar Selinium Library**
+```dos
+    pip install --upgrade robotframework-seleniumlibrary
 ```
 ###
 ### Robot Framework

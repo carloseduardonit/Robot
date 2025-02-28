@@ -15,7 +15,8 @@ ${botao.simplificado}    //button[@aria-label='Filtro Candidatura simplificada.'
 ${botao.vagaSimplificada}   (//span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')])[1]
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
-${botao.avancar}    (//span[@class='artdeco-button__text'][contains(.,'avançar')])[1]
+${botao.avancar}    (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
+${teste}    
     
 *** Keywords ***
 Linkedin Job Search
@@ -52,8 +53,10 @@ Faça a Candidatura da vaga simplificada
     [Tags]    Linkedin
     Wait Until Element Is Visible    locator=${botao.vagaSimplificada}    timeout=15
     Click Element  ${botao.vagaSimplificada}
-    Element Should Be Visible    locator=${botao.avancar}
+    Wait Until Element Is Visible   ${botao.avancar}   timeout=15
+    Click Element    ${botao.avancar}
     Capture Page Screenshot
+    
 
 *** Test Cases ***
 
