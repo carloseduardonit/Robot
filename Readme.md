@@ -23,7 +23,12 @@
 ## 📂 Estrutura do Projeto
 
 - **tests/**: Contém os casos de teste.
-  - `Linkedin/linkedin.robot`: Script principal de automação.
+  - `Amazon/`
+    - `Amazon_test.robot`
+  - `Linkedin/`
+    - `linkedin.robot`: Script principal de automação.
+  - `Salesforce/`
+    - `Salesforce_test.robot`
 - **resources/**: Armazena recursos auxiliares.
   - `keywords.robot`: Conjunto de palavras-chave personalizadas.
 - **results/**: Diretório onde os resultados das execuções são armazenados.
@@ -53,6 +58,14 @@
 - **Instalar ou Atualizar Selinium Library**
 ```dos
     pip install --upgrade robotframework-seleniumlibrary
+```
+- **Instalar ou Atualizar Request Library**
+```dos
+   pip install --upgrade robotframework-requests
+```
+- **Verificar as Librarys do Python**
+```dos
+    pip list
 ```
 ###
 ### Robot Framework
