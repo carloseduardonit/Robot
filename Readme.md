@@ -73,7 +73,6 @@
 ``` dos
     robot '.\test\Amazon\Amazon_test.robot'
 ```
-
 **Executar a suite de teste do Linkedin**
 ``` dos
     robot '.\test\LinkedIn\linkedin.robot'
@@ -82,7 +81,6 @@
 ``` dos
     robot '.\test\Salesforce\Salesforce.robot'
 ```
-
 
 ## 🚀 Como Executar  
 ``` dos
