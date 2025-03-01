@@ -15,8 +15,10 @@ ${botao.simplificado}    //button[@aria-label='Filtro Candidatura simplificada.'
 ${botao.vagaSimplificada}   (//span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')])[1]
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
-${botao.avancar}    (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
-${botao.revisar}    (//span[@class='artdeco-button__text'][contains(.,Revisar)])
+${botao}  //form//footer//button
+
+${botao.avancar}      ${botao} + (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
+${botao.revisar}      (//span[@class='artdeco-button__text'][contains(.,Revisar)])
 ${boto.enviarCandidatura}   (//span[@class='artdeco-button__text'][contains(.,Enviar candidatura)])
 ${progresso}   //progress
 # variaveis 
@@ -85,6 +87,7 @@ Vagas home office simplificado
     [Documentation]   Pesquisar vagas de QA no Linkedin Home Office modo simplificado
     [Tags]    Linkedin
     Linkedin Job Search
-    Clique na filtragem da Candidatura simplificada
+    Clique na filtragem da Candidatura 
+    
     Faça a Candidatura da vaga simplificada
 #    Clique na filtragem do modelo Home Office
