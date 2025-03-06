@@ -1,5 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
+Library    RPA.Browser.Selenium
 Variables   ../test/Linkedin/linkedin.py
 *** Keywords ***
 open firefox

@@ -2,7 +2,9 @@
 Resource    ../../resources/keywords.robot
 Resource    ../../resources/variables.robot
 Variables    linkedin.py
-Library    SeleniumLibrary
+Variables    linkedin_locator.py
+Library    OperatingSystem
+Library    XML
 Test Setup    Open Linkedin    
 # Test Teardown    Close Linkedin
 
@@ -21,14 +23,17 @@ ${botao.avancar}      ${botao} + (//span[@class='artdeco-button__text'][contains
 ${botao.revisar}      (//span[@class='artdeco-button__text'][contains(.,Revisar)])
 ${boto.enviarCandidatura}   (//span[@class='artdeco-button__text'][contains(.,Enviar candidatura)])
 ${progresso}   //progress
+${ul.vagas}    //ul[contains(@class,'CHelaFlgVsNlcBTQrYWbGZUgtGlTbenoqMfFo')]
 # variaveis 
 ${progresso.valor}  0
-${contador}    - 1
+${contador}    -1
+${test}
+${item}
 *** Keywords ***
 Linkedin Job Search
     [Documentation]    Search for a job on Linkedin
     [Tags]    Linkedin
-    Wait Until Element Is Visible    locator=${h3.nome}    timeout=150
+    Wait Until Element Is Visible   locator=${h3.nome}    timeout=150
     Go To    ${urlJob}
     Sleep  15
     Element Should Be Visible    ${h2.title}
@@ -74,9 +79,8 @@ Manipular Element
     ${contador} =  Set Variable    0
     ${contador} =  Get Element Count    ${elemento}
     IF    ${contador} > 0
-        Wait Until Element Is Visible    locator=${elemento}    timeout=15
-        Capture Element Screenshot    ${elemento}
-        Click Element    ${elemento}    
+        Capture Element Screenshot  ${elemento}
+        Click Element If Visible  ${elemento}    
         Capture Page Screenshot
     END
     
@@ -87,7 +91,26 @@ Vagas home office simplificado
     [Documentation]   Pesquisar vagas de QA no Linkedin Home Office modo simplificado
     [Tags]    Linkedin
     Linkedin Job Search
-    Clique na filtragem da Candidatura 
+    Clique na filtragem da Candidatura simplificada
     
-    Faça a Candidatura da vaga simplificada
+    #Faça a Candidatura da vaga simplificada
 #    Clique na filtragem do modelo Home Office
+Acessar o cartão da Vaga
+    [Documentation]  Verificar se a vaga foi cadastrada ou não
+    Linkedin Job Search
+    Clique na filtragem da Candidatura simplificada
+#    ${contador} =     Get Element Count    ${cartaosVagas}
+#  ${test}  Set Variable     1
+    # WHILE    ${test} < ${contador}
+        
+    #     ${item} =  Set Variable    ${cartaosVagas} [${test}]
+    #     Capture Element Screenshot    ${item}
+    #     ${test}  Set Variable   ${${test} + 1}
+    #     log     ${test}
+    #@FindBy(xpath = "(//div[@data-view-name='job-card'])[2]")
+    # END
+    ${Vagas} =    Get Selected List Value    locator = 
+    FOR    ${vaga}    IN    ${Vagas}
+        Log    ${vaga}
+        Capture Element Screenshot    locator=${vaga}
+    END
