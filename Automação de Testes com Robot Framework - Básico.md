@@ -10,16 +10,20 @@
 
 ### Teoria  de Automação de Testes
 
-### Lógica  de Programação
+#### O que é Automaçaõ de Testes?
+
+### Lógica de Programação
+
+#### O que é Logica de Programação
 
 ### Terminais de Comando
 
-## Seção 02:    Instalações 
-## Seção 03:
-## Seção 04:
-## Seção 05:
-## Seção 06:
-## Seção 07:
+## Seção 02: Instalações 
+## Seção 03: Web Testing - Fases da construção  de um  teste Automatizado
+## Seção 04: Trabalhando com Variáveis
+## Seção 05: Estruturas  do Robot Framework
+## Seção 06: Api testing com Robot Framework
+## Seção 07: Conclusão
 
 ## Bibliografia
 
