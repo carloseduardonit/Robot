@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../resources/keywords.robot
+Resource    ../../resources/keywords_linkedin.robot
 Resource    ../../resources/variables.robot
 Variables    linkedin.py
 Variables    linkedin_locator.py

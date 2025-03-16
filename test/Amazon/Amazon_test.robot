@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../resources/keywords.robot
+Resource    ../../resources/keywords_amazon.robot
 Library    SeleniumLibrary
 Test Setup    Open Amazon
 # Test Teardown    Close Amazon

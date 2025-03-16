@@ -2,7 +2,6 @@
 Documentation    Suite de testes para o Salesforce
 Library    SeleniumLibrary
 Variables  ../../resources/Variaveis.py
-Resource    ../../resources/keywords.robot
 Resource    ../../resources/variables.robot
 
 *** Variables ***
