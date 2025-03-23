@@ -99,17 +99,9 @@ Acessar o cartão da Vaga
     [Documentation]  Verificar se a vaga foi cadastrada ou não
     Linkedin Job Search
     Clique na filtragem da Candidatura simplificada
-#    ${contador} =     Get Element Count    ${cartaosVagas}
-#  ${test}  Set Variable     1
-    # WHILE    ${test} < ${contador}
-        
-    #     ${item} =  Set Variable    ${cartaosVagas} [${test}]
-    #     Capture Element Screenshot    ${item}
-    #     ${test}  Set Variable   ${${test} + 1}
-    #     log     ${test}
-    #@FindBy(xpath = "(//div[@data-view-name='job-card'])[2]")
-    # END
-    ${Vagas} =    Get Selected List Value    locator = 
+    ${contador} =     Get Element Count    ${cartaosVagas}
+
+    ${Vagas} =    Get Selected List Value    ${ul.vagas}
     FOR    ${vaga}    IN    ${Vagas}
         Log    ${vaga}
         Capture Element Screenshot    locator=${vaga}
