@@ -81,6 +81,21 @@
 ``` dos
     robot '.\test\Salesforce\Salesforce.robot'
 ```
+### Atalho no Chorme
+
+``` gherkin
+      Dado  que  usuario esta no Chorme 
+        E desejar  acessar DevTools
+      Quando pressionar a tecla "F12"
+      Então o navegador deverá  exibir o DevTools na Seção "Elementos"
+```
+
+``` gherkin
+      Dado  que  usuario esta no DevTools
+      Quando  pressionar  a tecla "CTRL" + "F"
+      Então  o  navegador  deverá exibir o buscador de Elementos
+
+```
 
 ## 🚀 Como Executar  
 ``` dos
