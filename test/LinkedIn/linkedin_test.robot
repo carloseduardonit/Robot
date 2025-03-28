@@ -4,7 +4,6 @@ Resource    ../../resources/variables.robot
 Variables    linkedin.py
 Variables    linkedin_locator.py
 Library    OperatingSystem
-Library    XML
 Test Setup    Open Linkedin    
 # Test Teardown    Close Linkedin
 
@@ -14,21 +13,24 @@ ${h3.nome}      //h3[contains(.,'${name}')]
 ${h2.title}    //h2[contains(.,'Vagas selecionadas para você')]
 #  Botao
 ${botao.simplificado}    //button[@aria-label='Filtro Candidatura simplificada.']
-${botao.vagaSimplificada}   (//span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')])[1]
+${botao_vagaSimplificada}   //span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')][1]
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
 ${botao}  //form//footer//button
 
-${botao.avancar}      ${botao} + (//span[@class='artdeco-button__text'][contains(.,'Avançar')])
-${botao.revisar}      (//span[@class='artdeco-button__text'][contains(.,Revisar)])
-${boto.enviarCandidatura}   (//span[@class='artdeco-button__text'][contains(.,Enviar candidatura)])
+${botao_avancar}      //span[@class='artdeco-button__text'][contains(.,'Avançar')]
+${botao_revisar}      //span[@class='artdeco-button__text'][contains(.,Revisar)]
+${botao_enviarCandidatura}   //span[@class='artdeco-button__text'][contains(.,Enviar candidatura)]
 ${progresso}   //progress
-${ul.vagas}    //ul[contains(@class,'CHelaFlgVsNlcBTQrYWbGZUgtGlTbenoqMfFo')]
+${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
+# link
+${link_Visulizar}     //a[contains(@class,'jobs-s-apply__application-link display-flex align-items-center ember-view')]
 # variaveis 
-${progresso.valor}  0
-${contador}    -1
+${progresso_valor}  0
+${contador}  =  -1
 ${test}
 ${item}
+
 *** Keywords ***
 Linkedin Job Search
     [Documentation]    Search for a job on Linkedin
@@ -62,28 +64,42 @@ Clique na filtragem do modelo Home Office
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
     [Tags]    Linkedin
-    Wait Until Element Is Visible    locator=${botao.vagaSimplificada}    timeout=15
-    Click Element  ${botao.vagaSimplificada}
+    Wait Until Element Is Visible    locator=${botao_vagaSimplificada}    timeout=15
+    Click Element If Visible  ${botao_vagaSimplificada}
     Capture Page Screenshot
-    ${progresso.valor} =    Get Element Attribute    ${progresso}    value    
-    WHILE    ${progresso.valor} < 100
-        Manipular Element   ${botao.avancar}  
-       # Manipular Element   ${botao.revisar}
-       # Manipular Element   ${boto.enviarCandidatura}
-        ${progresso.valor} =  Get Element Attribute    ${progresso}    value
+    ${item} =   Is Element Attribute Equal To    ${link_Visulizar}   value    'Visualizar candidatura'
+    Wait Until Element Is Visible    locator=${progresso}   timeout=15
+    ${progresso_valor} =    Get Element Attribute    ${progresso}    value 
+    ${progresso_valor} =    Convert To Integer    ${progresso_valor}
+    WHILE    ${progresso_valor} < 100
+        Manipular Element   ${botao_avancar}  
+        Manipular Element   ${botao_revisar}
+        Manipular Element   ${botao_enviarCandidatura}
+        ${progresso_valor} =  Get Element Attribute    ${progresso}    value
+        ${progresso_valor} =  Convert To Integer    ${progresso_valor}
         Sleep    15
     END
     
 Manipular Element
     [Arguments]   ${elemento}
-    ${contador} =  Set Variable    0
-    ${contador} =  Get Element Count    ${elemento}
-    IF    ${contador} > 0
-        Capture Element Screenshot  ${elemento}
-        Click Element If Visible  ${elemento}    
-        Capture Page Screenshot
-    END
-    
+    Run Keyword And Ignore Error    Click Element If Visible  ${elemento}    
+
+Quantos elementos 
+    [Arguments]    ${elemento}
+    RETURN   Get Element Count    ${elemento}
+
+Acessar o cartão da Vaga
+    [Documentation]    Acessar o cartão da Vaga
+    [Tags]    cartaosVagas
+    [Arguments]    ${numero_item}
+
+    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
+    Capture Element Screenshot    locator=${item} 
+        ...   filename=vaga${contador}.png
+    Wait Until Element Is Visible    locator=${item}//strong    timeout=15
+    log  ${item}//strong
+    Click Element    locator=${item}//strong
+    Capture Page Screenshot    paginavaga${contador}.png
 
 *** Test Cases ***
 
@@ -92,17 +108,19 @@ Vagas home office simplificado
     [Tags]    Linkedin
     Linkedin Job Search
     Clique na filtragem da Candidatura simplificada
-    
-    #Faça a Candidatura da vaga simplificada
+    Faça a Candidatura da vaga simplificada
 #    Clique na filtragem do modelo Home Office
-Acessar o cartão da Vaga
-    [Documentation]  Verificar se a vaga foi cadastrada ou não
+Acessar o cartões de Vagas
+    [Documentation]    Acessar o cartão da Vaga
+    
+    ${contador}      Set Variable      0
     Linkedin Job Search
     Clique na filtragem da Candidatura simplificada
-    ${contador} =     Get Element Count    ${cartaosVagas}
-
-    ${Vagas} =    Get Selected List Value    ${ul.vagas}
-    FOR    ${vaga}    IN    ${Vagas}
-        Log    ${vaga}
-        Capture Element Screenshot    locator=${vaga}
+    ${Vagas} =    Get Element Count   ${div_vagas}
+    WHILE  ${contador} < ${Vagas}
+        Acessar o cartão da Vaga    ${contador}
+        Faça a Candidatura da vaga simplificada
+        ${Vagas} =   Get Element Count     ${div_vagas}
+        ${contador}  Set Variable  ${${contador} + 1}
     END
+
