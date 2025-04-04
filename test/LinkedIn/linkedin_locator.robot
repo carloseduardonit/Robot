@@ -13,7 +13,7 @@ ${h3.nome}      //h3[contains(.,'${name}')]
 ${h2.title}    //h2[contains(.,'Vagas selecionadas para você')]
 
 #  Botao da Filtragem de vagas
-${botao.simplificado}    //button[@aria-label='Filtro Candidatura simplificada.']
+${botao.filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
 
 ${botao_vagaSimplificada}   //span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')][1]
 ${botao_avancarCandidatura}       //span[@class='artdeco-button__text'][contains(.,'Avançar')]

@@ -29,9 +29,9 @@ ${item}
 Clique na filtragem da Candidatura simplificada
     [Documentation]    Click on the simplified application button
     [Tags]    button
-    Wait Until Element Is Visible    locator=${botao.simplificado}    timeout=150
-    Click Button  ${botao.simplificado}
-    Capture Page Screenshot     Vagas de ${job}.png
+    Wait Until Element Is Visible    locator=${botao.filtragemVagaSimplificada}   timeout=15
+    Click Button  ${botao.filtragemVagaSimplificada}
+    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 
 Clique na filtragem do modelo Home Office
     [Documentation]   Clique na vaga Home Office
