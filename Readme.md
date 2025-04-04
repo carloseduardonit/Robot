@@ -71,15 +71,15 @@
 ### Robot Framework
 **Executar a suite de teste do Amazon**
 ``` dos
-    robot '.\test\Amazon\Amazon_test.robot'
+    robot .\test\Amazon\Amazon_test.robot
 ```
 **Executar a suite de teste do Linkedin**
 ``` dos
-    robot '.\test\LinkedIn\linkedin.robot'
+    robot .\test\LinkedIn\linkedin_test.robot
 ```
 **Executar a suite de teste do Salesforce**
 ``` dos
-    robot '.\test\Salesforce\Salesforce.robot'
+    robot .\test\Salesforce\Salesforce_test.robot
 ```
 ### Atalho no Chorme
 
