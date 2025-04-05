@@ -5,7 +5,7 @@ Variables    linkedin.py
 Resource   linkedin_locator.robot
 Library    OperatingSystem
 Test Setup    Open Linkedin    
-# Test Teardown    Close Linkedin
+Test Teardown    Close Linkedin
 
 *** Variables ***
 
@@ -15,24 +15,12 @@ ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
 ${botao}  //form//footer//button
 # 
-${progresso}   //progress
+${path_progresso}   //progress
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 # link
 ${link_Visulizar}     //a[contains(@class,'jobs-s-apply__application-link display-flex align-items-center ember-view')]
-# variaveis 
-${progresso_valor}  0
-${contador}  -1
-${test}
-${item}  
 
 *** Keywords ***
-Clique na filtragem da Candidatura simplificada
-    [Documentation]    Click on the simplified application button
-    [Tags]    button
-    Wait Until Element Is Visible    locator=${botao.filtragemVagaSimplificada}   timeout=15
-    Click Button  ${botao.filtragemVagaSimplificada}
-    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
-
 Clique na filtragem do modelo Home Office
     [Documentation]   Clique na vaga Home Office
     [Tags]    button
@@ -48,35 +36,39 @@ Clique na filtragem do modelo Home Office
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
     [Tags]    Linkedin
-    Click Element If Visible  ${botao_vagaSimplificada}
     Capture Page Screenshot
-    ${resposta} =  Is Element Visible     ${link_Visulizar} 
+    ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
     IF    ${resposta}
-        Log    message = "Vaga esta com candidatura realizada"
-        
+        Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
+        Canditada ao processo simples
+        Canditada ao processo extensivo
     END
 
-    IF  True
-        Log    message= ""
+Canditada ao processo simples
+     ${resposta} =  Is Element Visible  ${path_progresso}
+    IF  '${resposta}' == 'False'
+        Manipular Element   ${botao_avancarCandidatura}  
+        Manipular Element   ${botao_revisarCandidatura}
+        Manipular Element   ${botao_enviarCandidatura}
+        Manipular Element    ${botao_finalizarCandidatura}
     END
-
-    ${resposta} =  Is Element Visible   ${progresso}
+Canditada ao processo extensivo
+    ${resposta} =  Is Element Visible   ${path_progresso}
     IF  ${resposta}
-        Wait Until Element Is Visible    locator=${progresso}   timeout=15
-        ${progresso_valor} =    Get Element Attribute    ${progresso}    value 
+        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
+        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
         ${progresso_valor} =    Convert To Integer    ${progresso_valor}
         WHILE    ${progresso_valor} < 100
             Manipular Element   ${botao_avancarCandidatura}  
             Manipular Element   ${botao_revisarCandidatura}
             Manipular Element   ${botao_enviarCandidatura}
-            ${progresso_valor} =  Get Element Attribute    ${progresso}    value
+            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
             ${progresso_valor} =  Convert To Integer    ${progresso_valor}
             Sleep    15
         END 
+        Capture Page Screenshot 
         Manipular Element    ${botao_finalizarCandidatura}
     END
-
-
 Quantos elementos 
     [Arguments]    ${elemento}
     RETURN   Get Element Count    ${elemento}
@@ -92,7 +84,7 @@ Vagas home office simplificado
     Faça a Candidatura da vaga simplificada
 
 #    Clique na filtragem do modelo Home Office
-Acessar o cartões de Vagas
+Acessar o cartoes de Vagas
     [Documentation]    Acessar o cartão da Vaga
     [Tags]   cartaosVagas
     ${contador}      Set Variable      0

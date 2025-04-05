@@ -34,13 +34,21 @@ Open Linkedin I
 Pesquisar para emprego no Linkedin
     [Documentation]    Pesquisar para emprego no Linkedin
     [Tags]    Pesquisar_emprego
-    Wait Until Element Is Visible   locator=${h3.nome}    timeout=150
+    Wait Until Element Is Visible   locator=${h3_nome}    timeout=150
     Go To    ${urlJob}
     Sleep  15
     Element Should Be Visible    ${h2.title}
     Input Text    ${campoSeach}   ${job}
     Press Keys    ${campoSeach}    ENTER
     Sleep    15
+    Capture Page Screenshot    Vagas de ${job}.png
+Clique na filtragem da Candidatura simplificada
+    [Documentation]    Clique na filtragem da Candidatura simplificada
+    [Tags]    button
+    Wait Until Element Is Visible    locator=${botao.filtragemVagaSimplificada}   timeout=15
+    Click Button  ${botao.filtragemVagaSimplificada}
+    Sleep    15
+    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 ## Fechar o navegador
 Close Linkedin
     [Documentation]    Fechar o navegador do linkedin
@@ -61,7 +69,7 @@ Acessar o cartão da Vaga
     [Arguments]    ${numero_item}
 
     ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
-    Capture Element Screenshot    locator=${item} filename= vaga-${numero_item}.png
+    Capture Element Screenshot    locator=${item}     filename= vaga-${numero_item}.png
     Wait Until Element Is Visible    locator=${item}//strong    timeout=150
     Manipular Element   locator=${item}//strong
     Capture Page Screenshot    paginavaga-${numero_item}.png
