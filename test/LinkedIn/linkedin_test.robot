@@ -9,13 +9,10 @@ Test Teardown    Close Linkedin
 
 *** Variables ***
 
-
-
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
-${botao}  //form//footer//button
+${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 # 
-${path_progresso}   //progress
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 # link
 ${link_Visulizar}     //a[contains(@class,'jobs-s-apply__application-link display-flex align-items-center ember-view')]
@@ -38,7 +35,7 @@ Faça a Candidatura da vaga simplificada
     [Tags]    Linkedin
     Capture Page Screenshot
     ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
-    IF    ${resposta}
+    IF    '${resposta}' == 'True'
         Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
         Canditada ao processo simples
         Canditada ao processo extensivo
@@ -54,7 +51,7 @@ Canditada ao processo simples
     END
 Canditada ao processo extensivo
     ${resposta} =  Is Element Visible   ${path_progresso}
-    IF  ${resposta}
+    IF  '${resposta}' == 'True'
         Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
         ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
         ${progresso_valor} =    Convert To Integer    ${progresso_valor}
@@ -81,7 +78,10 @@ Vagas home office simplificado
 
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
+    Acessar o cartao da Vaga    5
     Faça a Candidatura da vaga simplificada
+    Fechar o cartao da Vaga    5
+    Sleep   1500
 
 #    Clique na filtragem do modelo Home Office
 Acessar o cartoes de Vagas
@@ -92,16 +92,17 @@ Acessar o cartoes de Vagas
     Clique na filtragem da Candidatura simplificada
     ${Vagas} =    Get Element Count   ${div_vagas}
     WHILE  ${contador} < ${Vagas}
-        Acessar o cartão da Vaga    ${contador}
-        ${Resposta} =  Is Element Visible   //li[@class='job-card-container__footer-item job-card-container__footer-job-state t-bold'][contains(.,'Candidatou-se')][${contador}]
-        IF  ${Resposta} == False
+        ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
+        Log    message= ${item}
+        ${Resposta} =  Is Element Visible    ${item}
+        Log    message= ${Resposta}
+        IF    '${Resposta}' == 'False'
+            Acessar o cartao da Vaga    ${contador}  
             Faça a Candidatura da vaga simplificada
-        ELSE
-            Log    message= "Candidatura já realizada" INFO
-            Sleep    15
         END
-        Fechar o cartão da Vaga   ${contador}
+       # Fechar o cartao da Vaga   ${${contador} + 1}
         ${Vagas} =   Get Element Count     ${div_vagas}
-        ${contador} =  Evaluate    ${contador} + 1
+        log    ${Vagas}
+        ${contador} =  Set Variable    ${${contador} + 1}
     END
 

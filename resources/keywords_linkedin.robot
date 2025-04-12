@@ -4,7 +4,7 @@ Variables   ../test/Linkedin/linkedin.py
 Resource    ../test/LinkedIn/linkedin_locator.robot
 
 *** Variables ***
-${job}     QA
+${job}     Auxiliar de contabilidade
 ${urlJob}    https://www.linkedin.com/jobs/
 ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin
 *** Keywords ***
@@ -63,21 +63,26 @@ Manipular Element
     Run Keyword And Ignore Error    Click Element If Visible  ${elemento}    
 
 ## Keywords para manipular  card  de  vagas
-Acessar o cartão da Vaga
+Acessar o cartao da Vaga
     [Documentation]    Acessar o cartão da Vaga
     [Tags]    cartaosVagas
     [Arguments]    ${numero_item}
 
-    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
+    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//strong
+    Wait Until Element Is Visible    locator=${item}    timeout= 30
     Capture Element Screenshot    locator=${item}     filename= vaga-${numero_item}.png
-    Wait Until Element Is Visible    locator=${item}//strong    timeout=150
-    Manipular Element   locator=${item}//strong
+    Log    message= ${item}     
+    Click Element If Visible    ${item}
+#   Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
 
-Fechar o cartão da Vaga
+Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga
     [Tags]    cartaosVagas
     [Arguments]    ${numero_item}
 
-    ${item}     Set Variable    //button[contains(@class,'action-small artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--tertiary ember-view')]
-    Click Element If Visible    ${item}[${numero_item}]
+    ${item}    Set Variable    //button[contains(@class,'action-small artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--tertiary ember-view')][${numero_item}]
+    Log        ${item}     INFO
+    Wait Until Element Is Visible    locator=${item}    timeout= 30
+    Capture Element Screenshot    locator=${item}     filename= fechar-vaga-${numero_item}.png
+    Click Element If Visible    ${item}

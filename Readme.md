@@ -120,5 +120,7 @@
   - [geckodriver 64](https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-win-aarch64.zip) 
     - [como configurar geckodriver no windows](https://pedrohjmartins.medium.com/como-configurar-geckodriver-no-windows-d32d1c5d5f8d)
 - Library
+  - [RPA.Browser.Selenium](https://rpaframework.org/libraries/browser_selenium/index.html)
   - [SeleniumLibrary](https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#library-documentation-top)
+  - [String](https://robotframework.org/robotframework/latest/libraries/String.html)
   - [ExcelRobot](https://zero88.github.io/robotframework-excel/docs/ExcelRobot.html)

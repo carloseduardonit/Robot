@@ -15,6 +15,9 @@ ${h2.title}    //h2[contains(.,'Vagas selecionadas para você')]
 #  Botao da Filtragem de vagas
 ${botao.filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
 
+# Path do progresso da candidatura
+${path_progresso}   //progress
+
 # Botao da Candidatura simplificada
 ${botao_iniciarCandidaturaVagaSimplificada}          //span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')][1]
 ${botao_avancarCandidatura}       //span[@class='artdeco-button__text'][contains(.,'Avançar')]
