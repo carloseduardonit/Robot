@@ -4,7 +4,7 @@ Variables   ../test/Linkedin/linkedin.py
 Resource    ../test/LinkedIn/linkedin_locator.robot
 
 *** Variables ***
-${job}     Auxiliar de contabilidade
+${job}      QA
 ${urlJob}    https://www.linkedin.com/jobs/
 ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin
 *** Keywords ***
@@ -15,9 +15,9 @@ Open Linkedin
     Open Browser   ${loginLinkedin}  firefox
     ...  options = add_experimental_option("detach", True)
     Maximize Browser Window
-    Input Text    id=username   ${email}
-    Input Password    id=password    ${senha}
-    Click Button   //button[contains(@type,'submit')]
+    Input Text    ${campo_login}  ${email}
+    Input Password    ${campo_senha}    ${senha}
+    Click Button    ${botao_submit}
     Sleep    15
 
 Open Linkedin I
