@@ -4,7 +4,11 @@ Variables   ../test/Linkedin/linkedin.py
 Resource    ../test/LinkedIn/linkedin_locator.robot
 
 *** Variables ***
-${job}      QA
+${job}      Analista de qualidade 
+${cidade}      São Paulo, 
+${Pais}    Brasil
+${Modalidade}    (Remoto)
+${span_Local_Vaga}      //span[contains(.,'${cidade} ${Pais} ${Modalidade}')]
 ${urlJob}    https://www.linkedin.com/jobs/
 ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin
 *** Keywords ***
@@ -12,8 +16,8 @@ ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_
 Open Linkedin
     [Documentation]    Open Linkedin sem parametros
     [Tags]    login
-    Open Browser   ${loginLinkedin}  firefox
-    ...  options = add_experimental_option("detach", True)
+    Open Browser   ${loginLinkedin}     chrome
+    #...  options = add_experimental_option("detach", True)
     Maximize Browser Window
     Input Text    ${campo_login}  ${email}
     Input Password    ${campo_senha}    ${senha}
@@ -37,7 +41,7 @@ Pesquisar para emprego no Linkedin
     Wait Until Element Is Visible   locator=${h3_nome}    timeout=150
     Go To    ${urlJob}
     Sleep  15
-    Element Should Be Visible    ${h2.title}
+    Element Should Be Visible    ${h2_title}
     Input Text    ${campoSeach}   ${job}
     Press Keys    ${campoSeach}    ENTER
     Sleep    15
@@ -45,8 +49,8 @@ Pesquisar para emprego no Linkedin
 Clique na filtragem da Candidatura simplificada
     [Documentation]    Clique na filtragem da Candidatura simplificada
     [Tags]    button
-    Wait Until Element Is Visible    locator=${botao.filtragemVagaSimplificada}   timeout=15
-    Click Button  ${botao.filtragemVagaSimplificada}
+    Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150s
+    Click Button  ${botao_filtragemVagaSimplificada}
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 ## Fechar o navegador
@@ -73,8 +77,10 @@ Acessar o cartao da Vaga
     Capture Element Screenshot    locator=${item}     filename= vaga-${numero_item}.png
     Log    message= ${item}     
     Click Element If Visible    ${item}
-#   Manipular Element   locator=${item}
+    #Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
+
+
 
 Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga

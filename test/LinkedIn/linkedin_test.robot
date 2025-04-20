@@ -3,6 +3,7 @@ Resource    ../../resources/keywords_linkedin.robot
 Resource    ../../resources/variables.robot
 Variables    linkedin.py
 Resource   linkedin_locator.robot
+
 Library    OperatingSystem
 Test Setup    Open Linkedin    
 Test Teardown    Close Linkedin
@@ -56,9 +57,15 @@ Canditada ao processo extensivo
         ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
         ${progresso_valor} =    Convert To Integer    ${progresso_valor}
         WHILE    ${progresso_valor} < 100
-            Manipular Element   ${botao_avancarCandidatura}  
-            Manipular Element   ${botao_revisarCandidatura}
-            Manipular Element   ${botao_enviarCandidatura}
+            #IF   ${progresso_valor} <= 66
+                Manipular Element   ${botao_avancarCandidatura} 
+            #END
+            #IF    ${progresso_valor} >= 50
+                 Manipular Element   ${botao_revisarCandidatura}
+            #END
+            #IF    ${progresso_valor} == 100
+                 Manipular Element   ${botao_enviarCandidatura}
+            #END            
             ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
             ${progresso_valor} =  Convert To Integer    ${progresso_valor}
             Sleep    15
@@ -69,6 +76,17 @@ Canditada ao processo extensivo
 Quantos elementos 
     [Arguments]    ${elemento}
     RETURN   Get Element Count    ${elemento}
+
+Vaga desejada
+    [Arguments]    ${contador}
+    ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
+    ${Resposta} =  Is Element Visible    ${item}
+    IF    '${Resposta}' == 'False'
+        Acessar o cartao da Vaga    ${contador}  
+        Faça a Candidatura da vaga simplificada
+    END
+    # Fechar o cartao da Vaga   ${${contador} + 1}
+   
 
 *** Test Cases ***
 
@@ -93,16 +111,15 @@ Acessar o cartoes de Vagas
     ${Vagas} =    Get Element Count   ${div_vagas}
     WHILE  ${contador} < ${Vagas}
         ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
-        Log    message= ${item}
+        
         ${Resposta} =  Is Element Visible    ${item}
-        Log    message= ${Resposta}
+        
         IF    '${Resposta}' == 'False'
             Acessar o cartao da Vaga    ${contador}  
             Faça a Candidatura da vaga simplificada
         END
        # Fechar o cartao da Vaga   ${${contador} + 1}
         ${Vagas} =   Get Element Count     ${div_vagas}
-        log    ${Vagas}
         ${contador} =  Set Variable    ${${contador} + 1}
     END
 

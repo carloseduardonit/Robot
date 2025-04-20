@@ -10,16 +10,15 @@ ${campo_login}       //input[@id='username']
 ${campo_senha}      //input[@id='password']
 ${botao_submit}    //button[contains(@type,'submit')]
 
-
 # Campos de pesquisas
 ${campoSeach}    //input[contains(@class,'basic-input jobs-search-box__text-input jobs-search-box__keyboard-text-input jobs-search-global-typeahead__input')]
 
 # Titulos
 ${h3_nome}      //h3[contains(.,'${name}')]
-${h2.title}    //h2[contains(.,'Vagas selecionadas para você')]
+${h2_title}    //h2[contains(.,'Vagas que mais combinam com seu perfil')]
 
 #  Botao da Filtragem de vagas
-${botao.filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
+${botao_filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
 
 # Path do progresso da candidatura
 ${path_progresso}   //progress
