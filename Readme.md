@@ -19,6 +19,7 @@
 
 ### In Progress
 - [ ] [Automação de Testes com Robot Framework - Básico](https://www.udemy.com/course/automacao-de-testes-com-robot-framework-basico/?couponCode=KEEPLEARNINGBR)
+- [ ] [Robot Framework - Hora QA - PlayList](https://www.youtube.com/watch?v=Ua6KaBvAuWw&list=PLeE4t9Tme9VIPrx37F1EO0uk3vVweUZns)
 
 ## 📂 Estrutura do Projeto
 
@@ -76,6 +77,10 @@
 **Executar a suite de teste do Linkedin**
 ``` dos
     robot .\test\LinkedIn\linkedin_test.robot
+```
+**Executar o teste "Acessar o cartoes de Vagas" suite de teste do Linkedin**
+``` dos
+    robot --test "Acessar o cartoes de Vagas" .\test\LinkedIn\linkedin_test.robot
 ```
 **Executar a suite de teste do Salesforce**
 ``` dos
