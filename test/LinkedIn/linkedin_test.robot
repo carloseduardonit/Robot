@@ -55,7 +55,7 @@ Canditada ao processo extensivo
     IF  '${resposta}' == 'True'
         Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
         ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
-        ${progresso_valor} =    Convert To Integer    ${progresso_valor}
+        ${progresso_valor} =    Convert To Number   ${progresso_valor}
         WHILE    ${progresso_valor} < 100
             #IF   ${progresso_valor} <= 66
                 Manipular Element   ${botao_avancarCandidatura} 
@@ -67,7 +67,7 @@ Canditada ao processo extensivo
                  Manipular Element   ${botao_enviarCandidatura}
             #END            
             ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
-            ${progresso_valor} =  Convert To Integer    ${progresso_valor}
+            ${progresso_valor} =  Convert To Number   ${progresso_valor}
             Sleep    15
         END 
         Capture Page Screenshot 
@@ -108,6 +108,7 @@ Acessar o cartoes de Vagas
     ${contador}      Set Variable      0
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
+    Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
     ${Vagas} =    Get Element Count   ${div_vagas}
     WHILE  ${contador} < ${Vagas}
         ${item} =   Set Variable     ${Li_Candidatou}[${contador}]

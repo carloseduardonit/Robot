@@ -74,7 +74,7 @@ Acessar o cartao da Vaga
 
     ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//strong
     Wait Until Element Is Visible    locator=${item}    timeout= 30
-    Capture Element Screenshot    locator=${item}     filename= vaga-${numero_item}.png
+    Capture Element Screenshot    locator=${item}     filename=vaga-${numero_item}.png
     Log    message= ${item}     
     Click Element If Visible    ${item}
     #Manipular Element   locator=${item}
