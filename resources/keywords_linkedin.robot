@@ -81,7 +81,7 @@ Acessar o cartao da Vaga
     #Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
 Fechar o cartao da Vaga
-    [Documentation]    Fechar o cartão  da Vaga
+    [Documentation]    Fechar o cartão  da Vaga em porcesso de desenvolvimento
     [Tags]    cartaosVagas
     [Arguments]    ${numero_item}
 
@@ -110,7 +110,7 @@ Pesquisar de contato como "${nome}"
 
 Seguir os contatos
     #Wait Until Element Is Visible    ${botao_Seguir}
-    [Documentation]    Seguir o contato
+    [Documentation]    Seguir o contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
     Sleep  15
@@ -126,7 +126,7 @@ Seguir os contatos
     Seguir o contato
 
 Seguir o contato
-    [Documentation]    Seguir o contato
+    [Documentation]    Seguir o contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
     
@@ -134,6 +134,8 @@ Seguir o contato
     Sleep   15
 Conectar com os contatos
     #Wait Until Element Is Visible    ${botao_Conectar}
+    [Documentation]    Conectar com o contato em porcesso de desenvolvimento
+    [Tags]    contato
     Sleep  15
     ${quantidade_contatos} =   Get Element Count   ${botao_Conectar}
     IF    ${quantidade_contatos} == 0
@@ -146,11 +148,13 @@ Conectar com os contatos
     END
 
 Conectar ao Cantato
-    [Documentation]    Concetar ao Contato
+    [Documentation]    Concetar ao Contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
-    
-    Manipular Element    ${botao_Conectar}[${numero_item}]
+
+    ${item} =     ${botao_Conectar}[${numero_item}]
+    Manipular Element    ${item}
+    Capture Element Screenshot    ${item}    filename= conectar-contato-${numero_item}.png
     Sleep   15
     Manipular Element   ${botao_EnviarSemNota}
     Sleep  15 
