@@ -124,3 +124,18 @@ Acessar o cartoes de Vagas
         ${contador} =  Set Variable    ${${contador} + 1}
     END
 
+Fazer Networking no linkedin
+    [Documentation]   Fazer Networking no linkedin
+    [Tags]    Linkedin
+    Pesquisar de contato como "Rh"
+    ${contador}      Set Variable      1
+    #Wait Until Element Is Visible    locator=${div_contatos}    timeout=150
+    #${quantidade_contatos} =    Get WebElements    ${div_contatos}
+    #Log    message=${quantidade_contatos}
+    #Seguir os contatos
+    Conectar com os contatos
+    #WHILE  ${contador} <= ${quantidade_contatos}
+        
+      #  ${contador} =  Set Variable    ${${contador} + 1}
+       # ${quantidade_contatos} =    Get WebElements    ${div_contatos}
+    #END

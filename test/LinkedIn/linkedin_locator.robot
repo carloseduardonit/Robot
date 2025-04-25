@@ -15,7 +15,7 @@ ${campoSeach}    //input[contains(@class,'basic-input jobs-search-box__text-inpu
 
 # Titulos
 ${h3_nome}      //h3[contains(.,'${name}')]
-${h2_title}    //h2[contains(.,'Vagas que mais combinam com seu perfil')]
+${h2_title}    //h2[contains(.,'Conheça as oportunidades')]
 
 #  Botao da Filtragem de vagas
 ${botao_filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
@@ -36,3 +36,10 @@ ${progresso_valor}  0
 ${contador}  -1
 ${test}
 ${item}  
+
+# Variaveis de  inclusão de  contato
+${div_contatos}    //div[@data-view-name='search-entity-result-universal-template']
+${botao_Seguir}    //button[contains(.,'Seguir')]
+${botao_Conectar}  //button[contains(.,'Conectar')]
+${botao_EnviarSemNota}    //button[contains(@aria-label,'Enviar sem nota')]
+${botao_AdicionarNota}    //button[contains(@aria-label,'Adicionar nota')]

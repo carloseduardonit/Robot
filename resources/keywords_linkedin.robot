@@ -10,14 +10,15 @@ ${Pais}    Brasil
 ${Modalidade}    (Remoto)
 ${span_Local_Vaga}      //span[contains(.,'${cidade} ${Pais} ${Modalidade}')]
 ${urlJob}    https://www.linkedin.com/jobs/
+${urlMinhaRede}    https://www.linkedin.com/mynetwork/grow/
 ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin
 *** Keywords ***
 ## Acessar a home page do site Linkedin.com.br
 Open Linkedin
     [Documentation]    Open Linkedin sem parametros
     [Tags]    login
-    Open Browser   ${loginLinkedin}     chrome
-    #...  options = add_experimental_option("detach", True)
+    Open Browser   ${loginLinkedin}     firefox
+    ...  options = add_experimental_option("detach", True)
     Maximize Browser Window
     Input Text    ${campo_login}  ${email}
     Input Password    ${campo_senha}    ${senha}
@@ -79,9 +80,6 @@ Acessar o cartao da Vaga
     Click Element If Visible    ${item}
     #Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
-
-
-
 Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga
     [Tags]    cartaosVagas
@@ -92,3 +90,68 @@ Fechar o cartao da Vaga
     Wait Until Element Is Visible    locator=${item}    timeout= 30
     Capture Element Screenshot    locator=${item}     filename= fechar-vaga-${numero_item}.png
     Click Element If Visible    ${item}
+
+Pesquisar de contato como "${nome}"
+    [Documentation]    Pesquisar de contato como "${nome}"
+    [Arguments]    ${numero_item}=0
+    [Tags]    contato 
+    
+    Wait Until Element Is Visible   locator=${h3_nome}   timeout=150
+    Go To    url=${urlMinhaRede}
+    Sleep  15
+    ${campoSeach} =    Set Variable    //input[@data-view-name='search-global-typeahead-input']
+    Input Text    ${campoSeach}   ${nome}
+    Press Keys    ${campoSeach}    ENTER
+    Sleep  15
+    Wait Until Element Is Visible    //a[contains(.,'Ver todos os resultados de pessoas')][1]
+    Click Element    //a[contains(.,'Ver todos os resultados de pessoas')][1]
+    Sleep  30s
+    Capture Page Screenshot     Contato de ${nome}.png
+
+Seguir os contatos
+    #Wait Until Element Is Visible    ${botao_Seguir}
+    [Documentation]    Seguir o contato
+    [Arguments]    ${numero_item}=1
+    [Tags]    contato 
+    Sleep  15
+    ${quantidade_contatos} =   Get Element Count   ${botao_Seguir}
+    IF    ${quantidade_contatos} == 0
+        Log    message= Não existem contatos para seguir   
+        Exit For Loop
+        
+    END
+    FOR    ${contador}    IN RANGE    1    ${quantidade_contatos}
+        Seguir o contato    ${contador}
+    END
+    Seguir o contato
+
+Seguir o contato
+    [Documentation]    Seguir o contato
+    [Arguments]    ${numero_item}=1
+    [Tags]    contato 
+    
+    Manipular Element    ${botao_Seguir}[${numero_item}]
+    Sleep   15
+Conectar com os contatos
+    #Wait Until Element Is Visible    ${botao_Conectar}
+    Sleep  15
+    ${quantidade_contatos} =   Get Element Count   ${botao_Conectar}
+    IF    ${quantidade_contatos} == 0
+        Log    message= Não existem contatos para conectar    
+        Exit For Loop
+        
+    END
+    FOR    ${contador}    IN RANGE    1    ${quantidade_contatos}
+        Conectar ao Cantato    ${contador}
+    END
+
+Conectar ao Cantato
+    [Documentation]    Concetar ao Contato
+    [Arguments]    ${numero_item}=1
+    [Tags]    contato 
+    
+    Manipular Element    ${botao_Conectar}[${numero_item}]
+    Sleep   15
+    Manipular Element   ${botao_EnviarSemNota}
+    Sleep  15 
+    
