@@ -1,20 +1,29 @@
-/log.html
-/output.xml
-/report.html
+# Ambiente virtual e configurações do editor
 .venv/
 .vscode/
 __pycache__/
+
+# Arquivos de configuração e variáveis locais
 settings.json
 variaveis.py
-/selenium-screenshot-*.png
+
+# Relatórios e logs
+log.html
+output.xml
+report.html
+interactive_console_output.xml
+geckodriver-*.log
+
+# Capturas de tela (geradas por testes ou uso)
+selenium-screenshot-*.png
+selenium-element-screenshot-*.png
 paginavaga-*.png
 vaga-*.png
-/test/Linkedin/linkedin.py
-geckodriver-*.log
-interactive_console_output.xml
-selenium-element-screenshot-*.png
-/*.
-.txt
 Vagas de * no modelo de vaga simplificada.png
 Vagas de *.png
 Contato de *.png
+
+# Arquivos diversos
+*.txt
+/*.
+test/LinkedIn/linkedin.py
