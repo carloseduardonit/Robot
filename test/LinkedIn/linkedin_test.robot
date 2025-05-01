@@ -24,8 +24,6 @@ Clique na filtragem do modelo Home Office
     [Tags]    button
     Wait Until Element Is Visible    locator=${botao.homeOffice}    timeout=15
     Click Button  ${botao.homeOffice}
-#    Click Element    locator=${combo.homeOffice}
-#   Select Checkbox    locator=${combo.homeOffice}
     Sleep    150
     Capture Page Screenshot
 
@@ -50,29 +48,7 @@ Canditada ao processo simples
         Manipular Element   ${botao_enviarCandidatura}
         Manipular Element    ${botao_finalizarCandidatura}
     END
-Canditada ao processo extensivo
-    ${resposta} =  Is Element Visible   ${path_progresso}
-    IF  '${resposta}' == 'True'
-        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
-        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
-        ${progresso_valor} =    Convert To Number   ${progresso_valor}
-        WHILE    ${progresso_valor} < 100
-            #IF   ${progresso_valor} <= 66
-                Manipular Element   ${botao_avancarCandidatura} 
-            #END
-            #IF    ${progresso_valor} >= 50
-                 Manipular Element   ${botao_revisarCandidatura}
-            #END
-            #IF    ${progresso_valor} == 100
-                 Manipular Element   ${botao_enviarCandidatura}
-            #END            
-            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
-            ${progresso_valor} =  Convert To Number   ${progresso_valor}
-            Sleep    15
-        END 
-        Capture Page Screenshot 
-        Manipular Element    ${botao_finalizarCandidatura}
-    END
+
 Quantos elementos 
     [Arguments]    ${elemento}
     RETURN   Get Element Count    ${elemento}
@@ -86,8 +62,40 @@ Vaga desejada
         Faça a Candidatura da vaga simplificada
     END
     # Fechar o cartao da Vaga   ${${contador} + 1}
-   
+Reducao da tela 
+    [Arguments]   ${Clique}=1  ${Clicado}=0
+    
+    WHILE    ${Clicado} < ${Clique}
+        Press Keys   NONE  CTRL+SUBTRACT
+        Sleep    30
+        ${Clicado} =  Set Variable    ${Clicado} + 1
+    END
+Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
+    Set Local Variable    ${pagina}     1
+    WHILE    ${pagina} <= ${Paginas}
+        Acesso as vagas
+        Manipular Element    ${botao_avançarPaginaCartao}
+        Sleep    150
+        Capture Page Screenshot   pagina $pagina.png
+    END
+    
 
+Acesso as vagas
+    Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
+    ${Vagas} =    Get Element Count   ${div_vagas}
+    ${numero_vaga} =  Set Variable    0
+    WHILE  ${numero_vaga} < ${Vagas}
+        ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
+        ${Resposta} =  Is Element Visible    ${item}
+        IF    '${Resposta}' == 'False'
+            Acessar o cartao da Vaga    ${numero_vaga}  
+            Faça a Candidatura da vaga simplificada
+        END
+       # Fechar o cartao da Vaga   ${${contador} + 1}
+        ${Vagas} =   Get Element Count     ${div_vagas}
+        ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
+    END
+    
 *** Test Cases ***
 
 Vagas home office simplificado
@@ -102,27 +110,15 @@ Vagas home office simplificado
     Sleep   1500
 
 #    Clique na filtragem do modelo Home Office
-Acessar o cartoes de Vagas
+Acessar o cartoes de Vagas 
     [Documentation]    Acessar o cartão da Vaga
     [Tags]   cartaosVagas
     ${contador}      Set Variable      0
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
-    Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
-    ${Vagas} =    Get Element Count   ${div_vagas}
-    WHILE  ${contador} < ${Vagas}
-        ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
-        
-        ${Resposta} =  Is Element Visible    ${item}
-        
-        IF    '${Resposta}' == 'False'
-            Acessar o cartao da Vaga    ${contador}  
-            Faça a Candidatura da vaga simplificada
-        END
-       # Fechar o cartao da Vaga   ${${contador} + 1}
-        ${Vagas} =   Get Element Count     ${div_vagas}
-        ${contador} =  Set Variable    ${${contador} + 1}
-    END
+    Reducao da tela    3    0
+    Acesso as vagas
+    #Acesso as "5" paginas dos cartoes de vagas e as vagas
 
 Fazer Networking no linkedin
     [Documentation]   Fazer Networking no linkedin

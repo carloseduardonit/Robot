@@ -15,7 +15,8 @@ ${campoSeach}    //input[contains(@class,'basic-input jobs-search-box__text-inpu
 
 # Titulos
 ${h3_nome}      //h3[contains(.,'${name}')]
-${h2_title}    //h2[contains(.,'Conheça as oportunidades')]
+#${h2_title}    //h2[contains(.,'Conheça as oportunidades')]
+${h2_title}    //h2[contains(.,'Vagas selecionadas para você')]
 
 #  Botao da Filtragem de vagas
 ${botao_filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
@@ -31,6 +32,7 @@ ${botao_enviarCandidatura}      //span[@class='artdeco-button__text'][contains(.
 ${botao_concluirCandidatura}    //span[@class='artdeco-button__text'][contains(.,'Concluido')]
 ${botao_finalizarCandidatura}  //button[@class='artdeco-button artdeco-button--circle artdeco-button--muted artdeco-button--2 artdeco-button--tertiary ember-view artdeco-modal__dismiss']
 
+${botao_avançarPaginaCartao}    //button[@aria-label='Ver próxima página'][contains(.,'Avançar')]
 # Variaveis de controle
 ${progresso_valor}  0
 ${contador}  -1

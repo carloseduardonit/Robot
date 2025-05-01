@@ -17,8 +17,9 @@ ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_
 Open Linkedin
     [Documentation]    Open Linkedin sem parametros
     [Tags]    login
-    Open Browser   ${loginLinkedin}     firefox
-    ...  options = add_experimental_option("detach", True)
+    Open Browser   ${loginLinkedin}     chrome
+    #...  options = add_experimental_option("detach", True)
+    Set Window Size    1300   720
     Maximize Browser Window
     Input Text    ${campo_login}  ${email}
     Input Password    ${campo_senha}    ${senha}
@@ -54,6 +55,24 @@ Clique na filtragem da Candidatura simplificada
     Click Button  ${botao_filtragemVagaSimplificada}
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
+
+Canditada ao processo extensivo
+    ${resposta} =  Is Element Visible   ${path_progresso}
+    IF  '${resposta}' == 'True'
+        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
+        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
+        ${progresso_valor} =    Convert To Number   ${progresso_valor}
+        WHILE    ${progresso_valor} < 100
+                Manipular Element   ${botao_avancarCandidatura} 
+                 Manipular Element   ${botao_revisarCandidatura}
+                 Manipular Element   ${botao_enviarCandidatura}           
+            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
+            ${progresso_valor} =  Convert To Number   ${progresso_valor}
+            Sleep    15
+        END 
+        Capture Page Screenshot 
+        Manipular Element    ${botao_finalizarCandidatura}
+    END
 ## Fechar o navegador
 Close Linkedin
     [Documentation]    Fechar o navegador do linkedin
@@ -73,7 +92,7 @@ Acessar o cartao da Vaga
     [Tags]    cartaosVagas
     [Arguments]    ${numero_item}
 
-    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//strong
+    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
     Wait Until Element Is Visible    locator=${item}    timeout= 30
     Capture Element Screenshot    locator=${item}     filename=vaga-${numero_item}.png
     Log    message= ${item}     
@@ -138,6 +157,7 @@ Conectar com os contatos
     [Tags]    contato
     Sleep  15
     ${quantidade_contatos} =   Get Element Count   ${botao_Conectar}
+    Log    message= ${quantidade_contatos}
     IF    ${quantidade_contatos} == 0
         Log    message= Não existem contatos para conectar    
         Exit For Loop
@@ -152,7 +172,7 @@ Conectar ao Cantato
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
 
-    ${item} =     ${botao_Conectar}[${numero_item}]
+    ${item} =   Set Variable   ${botao_Conectar}[${numero_item}]
     Manipular Element    ${item}
     Capture Element Screenshot    ${item}    filename= conectar-contato-${numero_item}.png
     Sleep   15
