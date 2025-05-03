@@ -22,8 +22,9 @@ vaga-*.png
 Vagas de * no modelo de vaga simplificada.png
 Vagas de *.png
 Contato de *.png
-
+login *.png
 # Arquivos diversos
 *.txt
 /*.
 test/LinkedIn/linkedin.py
+
