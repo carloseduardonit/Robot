@@ -6,7 +6,7 @@ Resource    ../test/LinkedIn/login_test/linkedin_login_test.robot
 Resource    ../test/LinkedIn/feed_test/linkedin_feed_test.robot
 Resource    ../test/LinkedIn/jobs_test/linkedin_jobs_test.robot
 *** Variables ***
-${job}      Analista de qualidade 
+
 ${cidade}      São Paulo, 
 ${Pais}    Brasil
 ${Modalidade}    (Remoto)
@@ -16,22 +16,11 @@ ${urlMinhaRede}    https://www.linkedin.com/mynetwork/grow/
 
 *** Keywords ***
 
-Clique na filtragem da Candidatura simplificada
-    [Documentation]    Clique na filtragem da Candidatura simplificada
-    [Tags]    button
-    Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150s
-    Click Button  ${botao_filtragemVagaSimplificada}
-    Sleep    15
-    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 
 Close Linkedin
     [Documentation]    Fechar o navegador do linkedin
     [Tags]     Fechar
     Close Browser
-
-## Keywords para manipular os elementos da tela
-
-## Keywords para manipular  card  de  vagas
 
 Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga em porcesso de desenvolvimento

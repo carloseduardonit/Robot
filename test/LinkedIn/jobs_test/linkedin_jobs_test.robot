@@ -69,6 +69,14 @@ Canditada ao processo simples
         Manipular Element   ${botao_enviarCandidatura}
         Manipular Element    ${botao_finalizarCandidatura}
     END
+Clique na filtragem da Candidatura simplificada
+    [Documentation]    Clique na filtragem da Candidatura simplificada
+    [Tags]    button
+    Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150s
+    Click Button  ${botao_filtragemVagaSimplificada}
+    Sleep    15
+    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
+
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
     [Tags]    Linkedin

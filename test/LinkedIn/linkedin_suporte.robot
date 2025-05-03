@@ -1,6 +1,7 @@
 *** Settings ***
 Library    RPA.Browser.Selenium
-
+*** Variables ***
+${job}      Analista de qualidade 
 *** Keywords ***
 Manipular Element
     [Documentation]    Manipular o elemento
