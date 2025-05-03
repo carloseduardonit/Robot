@@ -2,6 +2,7 @@
 Library    RPA.Browser.Selenium
 Variables   ../test/Linkedin/linkedin.py
 Resource    ../test/LinkedIn/linkedin_locator.robot
+Resource    ../test/LinkedIn/login_test/linkedin_login_test.robot
 
 *** Variables ***
 ${job}      Analista de qualidade 
@@ -11,32 +12,10 @@ ${Modalidade}    (Remoto)
 ${span_Local_Vaga}      //span[contains(.,'${cidade} ${Pais} ${Modalidade}')]
 ${urlJob}    https://www.linkedin.com/jobs/
 ${urlMinhaRede}    https://www.linkedin.com/mynetwork/grow/
-${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin
-*** Keywords ***
-## Acessar a home page do site Linkedin.com.br
-Open Linkedin
-    [Documentation]    Open Linkedin sem parametros
-    [Tags]    login
-    Open Browser   ${loginLinkedin}     chrome
-    #...  options = add_experimental_option("detach", True)
-    Set Window Size    1300   720
-    Maximize Browser Window
-    Input Text    ${campo_login}  ${email}
-    Input Password    ${campo_senha}    ${senha}
-    Click Button    ${botao_submit}
-    Sleep    15
 
-Open Linkedin I
-    [Documentation]   Open Linkedin  com parametros
-    [Arguments]    ${email_usuario}   ${senha_usuario}
-    [Tags]     login
-    Open Browser   ${loginLinkedin}  firefox
-    ...  options = add_experimental_option("detach", True)
-    Maximize Browser Window
-    Input Text    id=username    ${email_usuario}
-    Input Password    id=password    ${senha_usuario}
-    Click Button   //button[contains(@type,'submit')]
-    Sleep    15
+*** Keywords ***
+
+
 Pesquisar para emprego no Linkedin
     [Documentation]    Pesquisar para emprego no Linkedin
     [Tags]    Pesquisar_emprego
