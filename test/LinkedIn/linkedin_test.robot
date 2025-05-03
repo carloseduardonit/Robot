@@ -12,9 +12,7 @@ Test Teardown    Close Linkedin
 
 ${botao.homeOffice}    //button[contains(@id,'workplaceType')]
 ${combo.homeOffice}    (//input[contains(@name,'remoto-filter-value')])[1]
-${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
-# 
-${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
+
 # link
 ${link_Visulizar}     //a[contains(@class,'jobs-s-apply__application-link display-flex align-items-center ember-view')]
 
@@ -29,39 +27,14 @@ Clique na filtragem do modelo Home Office
 
 
 
-Faça a Candidatura da vaga simplificada
-    [Documentation]    aplicar para a vaga simplidicada
-    [Tags]    Linkedin
-    Capture Page Screenshot
-    ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
-    IF    '${resposta}' == 'True'
-        Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
-        Canditada ao processo simples
-        Canditada ao processo extensivo
-    END
 
-Canditada ao processo simples
-     ${resposta} =  Is Element Visible  ${path_progresso}
-    IF  '${resposta}' == 'False'
-        Manipular Element   ${botao_avancarCandidatura}  
-        Manipular Element   ${botao_revisarCandidatura}
-        Manipular Element   ${botao_enviarCandidatura}
-        Manipular Element    ${botao_finalizarCandidatura}
-    END
+
 
 Quantos elementos 
     [Arguments]    ${elemento}
     RETURN   Get Element Count    ${elemento}
 
-Vaga desejada
-    [Arguments]    ${contador}
-    ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
-    ${Resposta} =  Is Element Visible    ${item}
-    IF    '${Resposta}' == 'False'
-        Acessar o cartao da Vaga    ${contador}  
-        Faça a Candidatura da vaga simplificada
-    END
-    # Fechar o cartao da Vaga   ${${contador} + 1}
+
 Reducao da tela 
     [Arguments]   ${Clique}=1  ${Clicado}=0
     
@@ -70,31 +43,7 @@ Reducao da tela
         Sleep    30
         ${Clicado} =  Set Variable    ${Clicado} + 1
     END
-Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
-    Set Local Variable    ${pagina}     1
-    WHILE    ${pagina} <= ${Paginas}
-        Acesso as vagas
-        Manipular Element    ${botao_avançarPaginaCartao}
-        Sleep    150
-        Capture Page Screenshot   pagina $pagina.png
-    END
-    
 
-Acesso as vagas
-    Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
-    ${Vagas} =    Get Element Count   ${div_vagas}
-    ${numero_vaga} =  Set Variable    0
-    WHILE  ${numero_vaga} < ${Vagas}
-        ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
-        ${Resposta} =  Is Element Visible    ${item}
-        IF    '${Resposta}' == 'False'
-            Acessar o cartao da Vaga    ${numero_vaga}  
-            Faça a Candidatura da vaga simplificada
-        END
-       # Fechar o cartao da Vaga   ${${contador} + 1}
-        ${Vagas} =   Get Element Count     ${div_vagas}
-        ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
-    END
     
 *** Test Cases ***
 
@@ -117,6 +66,10 @@ Acessar o cartoes de Vagas
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
     Reducao da tela    3    0
+    Acesso as vagas
+    Manipular Element    ${botao_avançarPaginaCartao}
+    Acesso as vagas
+    Manipular Element    ${botao_avançarPaginaCartao}
     Acesso as vagas
     #Acesso as "5" paginas dos cartoes de vagas e as vagas
 

@@ -3,7 +3,8 @@ Library    RPA.Browser.Selenium
 Variables   ../test/Linkedin/linkedin.py
 Resource    ../test/LinkedIn/linkedin_locator.robot
 Resource    ../test/LinkedIn/login_test/linkedin_login_test.robot
-
+Resource    ../test/LinkedIn/feed_test/linkedin_feed_test.robot
+Resource    ../test/LinkedIn/jobs_test/linkedin_jobs_test.robot
 *** Variables ***
 ${job}      Analista de qualidade 
 ${cidade}      São Paulo, 
@@ -15,18 +16,6 @@ ${urlMinhaRede}    https://www.linkedin.com/mynetwork/grow/
 
 *** Keywords ***
 
-
-Pesquisar para emprego no Linkedin
-    [Documentation]    Pesquisar para emprego no Linkedin
-    [Tags]    Pesquisar_emprego
-    Wait Until Element Is Visible   locator=${h3_nome}    timeout=150
-    Go To    ${urlJob}
-    Sleep  15
-    Element Should Be Visible    ${h2_title}
-    Input Text    ${campoSeach}   ${job}
-    Press Keys    ${campoSeach}    ENTER
-    Sleep    15
-    Capture Page Screenshot    Vagas de ${job}.png
 Clique na filtragem da Candidatura simplificada
     [Documentation]    Clique na filtragem da Candidatura simplificada
     [Tags]    button
@@ -35,49 +24,15 @@ Clique na filtragem da Candidatura simplificada
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 
-Canditada ao processo extensivo
-    ${resposta} =  Is Element Visible   ${path_progresso}
-    IF  '${resposta}' == 'True'
-        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
-        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
-        ${progresso_valor} =    Convert To Number   ${progresso_valor}
-        WHILE    ${progresso_valor} < 100
-                Manipular Element   ${botao_avancarCandidatura} 
-                 Manipular Element   ${botao_revisarCandidatura}
-                 Manipular Element   ${botao_enviarCandidatura}           
-            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
-            ${progresso_valor} =  Convert To Number   ${progresso_valor}
-            Sleep    15
-        END 
-        Capture Page Screenshot 
-        Manipular Element    ${botao_finalizarCandidatura}
-    END
-## Fechar o navegador
 Close Linkedin
     [Documentation]    Fechar o navegador do linkedin
     [Tags]     Fechar
     Close Browser
 
 ## Keywords para manipular os elementos da tela
-Manipular Element
-    [Documentation]    Manipular o elemento
-    [Tags]    Manipular
-    [Arguments]   ${elemento}
-    Run Keyword And Ignore Error    Click Element If Visible  ${elemento}    
 
 ## Keywords para manipular  card  de  vagas
-Acessar o cartao da Vaga
-    [Documentation]    Acessar o cartão da Vaga
-    [Tags]    cartaosVagas
-    [Arguments]    ${numero_item}
 
-    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
-    Wait Until Element Is Visible    locator=${item}    timeout= 30
-    Capture Element Screenshot    locator=${item}     filename=vaga-${numero_item}.png
-    Log    message= ${item}     
-    Click Element If Visible    ${item}
-    #Manipular Element   locator=${item}
-    Capture Page Screenshot    paginavaga-${numero_item}.png
 Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga em porcesso de desenvolvimento
     [Tags]    cartaosVagas
