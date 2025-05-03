@@ -1,5 +1,6 @@
 *** Settings **
 Library    RPA.Browser.Selenium
+Library    RequestsLibrary
 Variables   ../../LinkedIn/linkedin.py
 Resource    ../../LinkedIn/linkedin_locator.robot
 
@@ -19,6 +20,7 @@ Open Linkedin
     Input Password    ${campo_senha}    ${senha}
     Click Button    ${botao_submit}
     Sleep    15
+    Capture Page Screenshot    login ${name}.png 
 
 Open Linkedin I
     [Documentation]   Open Linkedin  com parametros
@@ -31,3 +33,17 @@ Open Linkedin I
     Input Password    id=password    ${senha_usuario}
     Click Button   //button[contains(@type,'submit')]
     Sleep    15
+
+Esta conectado ao Linkedin no Feed
+    [Documentation]    Verifica se o usuario esta conectado ao linkedin
+    [Tags]    login
+    ${resposta} =  Is Element Visible   ${h3_nome}
+    IF  '${resposta}' == 'True'
+        Log    O usuario ${name} esta conectado ao Linkedin
+        Capture Page Screenshot    ${name} conectado.png
+        
+    ELSE
+        Log    O usuario ${name} não esta conectado ao Linkedin
+        Capture Page Screenshot    ${name} desconectado.png
+    END
+    Return From Keyword  '${resposta}'
