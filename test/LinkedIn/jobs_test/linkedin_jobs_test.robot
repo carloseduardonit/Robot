@@ -5,6 +5,9 @@ Resource    ../linkedin_suporte.robot
 *** Variables ***
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
+${vaga_com_aviso}   //h2[contains(.,'Lembrete de segurança da pesquisa de vagas')]
+${botao_continuarCandidatura}    //span[contains(.,'Continuar candidatura')]
+${Vaga_Fechada}    //div[@class='job-card-container__footer-item--highlighted display-block t-12 pt1'][contains(.,'Não exibiremos mais esta vaga a você.')]
 
 *** Keywords ***
 Acessar o cartao da Vaga
@@ -76,6 +79,25 @@ Clique na filtragem da Candidatura simplificada
     Click Button  ${botao_filtragemVagaSimplificada}
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
+Esta canditado a esta vaga?
+    [Documentation]    Esta canditado a esta vaga?
+    [Tags]    button
+    [Arguments]    ${numero_item}
+    ${resposta} =  Is Element Visible   ${Li_Candidatou}[${numero_item}]
+    Return From Keyword    ${resposta}
+Esta vaga está fechada?
+    [Documentation]    Esta vaga está fechada
+    [Tags]    button
+    [Arguments]    ${numero_item}
+    ${resposta} =  Is Element Visible   ${Vaga_Fechada}[${numero_item}]
+    Return From Keyword    ${resposta}
+
+Existe algum aviso de segurança?
+    [Documentation]    Existe algum aviso de segurança?
+    [Tags]    button
+    ${resposta} =  Is Element Visible   ${vaga_com_aviso}
+    Return From Keyword    ${resposta}
+
 
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
@@ -84,6 +106,7 @@ Faça a Candidatura da vaga simplificada
     ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
     IF    '${resposta}' == 'True'
         Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
+        Remover aviso de segurança
         Canditada ao processo simples
         Canditada ao processo extensivo
     END
@@ -97,3 +120,10 @@ Vaga desejada
         Faça a Candidatura da vaga simplificada
     END
     # Fechar o cartao da Vaga   ${${contador} + 1}
+
+Remover aviso de segurança
+    [Documentation]    Remover aviso de segurança
+    ${resposta} =  Existe algum aviso de segurança?
+    IF  '${resposta}' == 'True'
+        Manipular Element    ${botao_continuarCandidatura}
+    END
