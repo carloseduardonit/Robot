@@ -27,11 +27,15 @@
   - `Amazon/`
     - `Amazon_test.robot`
   - `Linkedin/`
-    - `linkedin.robot`: Script principal de automação.
+    - `linkedin_test.robot`: Script principal de automação.
+    - `linkedin_locator.robot`: Variaveis Principal elementos da automação 
+    - 
   - `Salesforce/`
     - `Salesforce_test.robot`
 - **resources/**: Armazena recursos auxiliares.
-  - `keywords.robot`: Conjunto de palavras-chave personalizadas.
+  - `keywords_amazon.robot`: Conjunto de palavras-chave personalizadas.
+  - `keywords_linkedin.robot`: Conjunto de palavras-chave personalizadas.
+  - `keywords_.robot`: Conjunto de palavras-chave personalizadas.
 - **results/**: Diretório onde os resultados das execuções são armazenados.
 - `README.md`: Documentação do projeto.
 
