@@ -34,6 +34,7 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
 
 Acesso as vagas
     Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
+    Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
     ${Vagas} =    Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}

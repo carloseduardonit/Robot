@@ -5,6 +5,7 @@ Resource    ../test/LinkedIn/linkedin_locator.robot
 Resource    ../test/LinkedIn/login_test/linkedin_login_test.robot
 Resource    ../test/LinkedIn/feed_test/linkedin_feed_test.robot
 Resource    ../test/LinkedIn/jobs_test/linkedin_jobs_test.robot
+Resource    ../test/LinkedIn/minhaRede_test/linkedin_myNetWork_test.robot
 *** Variables ***
 
 ${cidade}      São Paulo, 
