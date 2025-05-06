@@ -36,6 +36,8 @@ ${botao_avançarPaginaCartao}    //button[@aria-label='Ver próxima página'][co
 # Variaveis de controle
 ${progresso_valor}  0
 ${contador}  -1
+${contador_vaga}  0
+${contador_pagina}  0
 ${test}
 ${item}  
 
