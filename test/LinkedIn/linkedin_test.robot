@@ -27,23 +27,6 @@ Clique na filtragem do modelo Home Office
 
 
 
-
-
-
-Quantos elementos 
-    [Arguments]    ${elemento}
-    RETURN   Get Element Count    ${elemento}
-
-
-Reducao da tela 
-    [Arguments]   ${Clique}=1  ${Clicado}=0
-    
-    WHILE    ${Clicado} < ${Clique}
-        Press Keys   NONE  CTRL+SUBTRACT
-        Sleep    30
-        ${Clicado} =  Set Variable    ${Clicado} + 1
-    END
-
     
 *** Test Cases ***
 
@@ -59,13 +42,15 @@ Vagas home office simplificado
     Sleep   1500
 
 #    Clique na filtragem do modelo Home Office
+
+# //div[@class='scaffold-layout__list ']
 Acessar o cartoes de Vagas 
     [Documentation]    Acessar o cartão da Vaga
     [Tags]   cartaosVagas
     ${contador}      Set Variable      0
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
-    Reducao da tela    3    0
+    Reducao da tela do navegador   3
     Acesso as vagas
     Manipular Element    ${botao_avançarPaginaCartao}
     Acesso as vagas
@@ -82,7 +67,7 @@ Fazer Networking no linkedin
     #${quantidade_contatos} =    Get WebElements    ${div_contatos}
     #Log    message=${quantidade_contatos}
     #Seguir os contatos
-    Conectar com os contatos
+    
     #WHILE  ${contador} <= ${quantidade_contatos}
         
       #  ${contador} =  Set Variable    ${${contador} + 1}
