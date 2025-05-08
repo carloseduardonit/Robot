@@ -21,7 +21,7 @@ Quantos elementos
 
 Reducao da tela do navegador
     [Documentation]    Reduz a tela do navegador
-    [Tags]    Reduzir
+    [Tags]    Reduzir    testar
     [Arguments]   ${Clique}=0
     ${i} =    Set Variable    0
     FOR    ${i}    IN RANGE    ${Clique}

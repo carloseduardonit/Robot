@@ -12,7 +12,7 @@ ${Vaga_Fechada}    //div[@class='job-card-container__footer-item--highlighted di
 *** Keywords ***
 Acessar o cartao da Vaga
     [Documentation]    Acessar o cartão da Vaga
-    [Tags]    cartaosVagas
+    [Tags]    cartaosVagas    OK
     [Arguments]    ${numero_item}
 
     ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
@@ -23,6 +23,9 @@ Acessar o cartao da Vaga
     #Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
 Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
+    [Documentation]    Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
+    [Tags]    Linkedin    NOK
+
     Set Local Variable    ${pagina}     1
     WHILE    ${pagina} <= ${Paginas}
         Acesso as vagas
@@ -33,6 +36,9 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
     
 
 Acesso as vagas
+    [Documentation]    Acesso as vagas    
+    [Tags]    Linkedin    OK
+
     Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
     Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
     ${Vagas} =    Get Element Count   ${div_vagas}
@@ -49,6 +55,9 @@ Acesso as vagas
         ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
     END
 Canditada ao processo extensivo
+    [Documentation]    Canditada ao processo extensivo
+    [Tags]    Linkedin    OK
+
     ${resposta} =  Is Element Visible   ${path_progresso}
     IF  '${resposta}' == 'True'
         Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
@@ -67,7 +76,10 @@ Canditada ao processo extensivo
     END
 ## Fechar o navegador
 Canditada ao processo simples
-     ${resposta} =  Is Element Visible  ${path_progresso}
+    [Documentation]    Canditada ao processo simples
+    [Tags]    Linkedin    OK
+
+    ${resposta} =  Is Element Visible  ${path_progresso}
     IF  '${resposta}' == 'False' 
         Manipular Element   ${botao_revisarCandidatura}
         Manipular Element   ${botao_enviarCandidatura}
@@ -75,15 +87,17 @@ Canditada ao processo simples
     END
 Clique na filtragem da Candidatura simplificada
     [Documentation]    Clique na filtragem da Candidatura simplificada
-    [Tags]    button
+    [Tags]    button    OK
+
     Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150s
     Click Button  ${botao_filtragemVagaSimplificada}
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 Esta canditado a esta vaga?
     [Documentation]    Esta canditado a esta vaga?
-    [Tags]    button
+    [Tags]    button     OK
     [Arguments]    ${numero_item}
+
     ${resposta} =  Is Element Visible   ${Li_Candidatou}[${numero_item}]
     Return From Keyword    ${resposta}
 Esta vaga está fechada?
@@ -95,14 +109,16 @@ Esta vaga está fechada?
 
 Existe algum aviso de segurança?
     [Documentation]    Existe algum aviso de segurança?
-    [Tags]    button
+    [Tags]    button    OK
+
     ${resposta} =  Is Element Visible   ${vaga_com_aviso}
     Return From Keyword    ${resposta}
 
 
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
-    [Tags]    Linkedin
+    [Tags]    Linkedin    OK
+
     Capture Page Screenshot
     ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
     IF    '${resposta}' == 'True'
@@ -113,7 +129,10 @@ Faça a Candidatura da vaga simplificada
     END
 
 Vaga desejada
+    [Documentation]    Vaga desejada
+    [Tags]    ON
     [Arguments]    ${contador}
+
     ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
     ${Resposta} =  Is Element Visible    ${item}
     IF    '${Resposta}' == 'False'
@@ -124,6 +143,8 @@ Vaga desejada
 
 Remover aviso de segurança
     [Documentation]    Remover aviso de segurança
+    [Tags]    button    OK
+
     ${resposta} =  Existe algum aviso de segurança?
     IF  '${resposta}' == 'True'
         Manipular Element    ${botao_continuarCandidatura}
