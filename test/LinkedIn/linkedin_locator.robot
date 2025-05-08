@@ -43,7 +43,7 @@ ${item}
 
 # Variaveis de  inclusão de  contato
 ${div_contatos}    //div[@data-view-name='search-entity-result-universal-template']
-${botao_Seguir}    //button[contains(.,'Seguir')]
-${botao_Conectar}  //button[contains(.,'Conectar')]
+${botao_Seguir}    //span[contains(.,'Seguir')]
+${botao_Conectar}  //span[contains(.,'Conectar')]
 ${botao_EnviarSemNota}    //button[contains(@aria-label,'Enviar sem nota')]
 ${botao_AdicionarNota}    //button[contains(@aria-label,'Adicionar nota')]
