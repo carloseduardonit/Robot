@@ -3,13 +3,14 @@ Library    RPA.Browser.Selenium
 Resource   ../linkedin_locator.robot
 Resource   ../linkedin_suporte.robot
 
-*** Keywords ***
+*** Variables ***
 
+*** Keywords ***
 Seguir os contatos
     #Wait Until Element Is Visible    ${botao_Seguir}
     [Documentation]    Seguir o contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
-    [Tags]    contato 
+    [Tags]    contato  NOK
     Sleep  15
     ${quantidade_contatos} =   Get Element Count   ${botao_Seguir}
     IF    ${quantidade_contatos} == 0
@@ -25,7 +26,7 @@ Seguir os contatos
 Seguir o contato
     [Documentation]    Seguir o contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
-    [Tags]    contato 
+    [Tags]    contato  NOK
     
     Manipular Element    ${botao_Seguir}[${numero_item}]
     Sleep   15
@@ -35,24 +36,25 @@ Conectar com os contatos
     [Tags]    contato
     Sleep  15
     ${quantidade_contatos} =   Get Element Count   ${botao_Conectar}
-    Log    message= ${quantidade_contatos}
     IF    ${quantidade_contatos} == 0
         Log    message= Não existem contatos para conectar    
         Exit For Loop
-        
+    ELSE
+        Log    message= São ${quantidade_contatos} contatos para conectar
     END
-    FOR    ${contador}    IN RANGE    1    ${quantidade_contatos}
-        Conectar ao Cantato    ${contador}
+    FOR    ${contador}    IN RANGE    0   ${quantidade_contatos}
+        Conectar ao Contato    ${${contador} + 1}
     END
 
-Conectar ao Cantato
+Conectar ao Contato
     [Documentation]    Concetar ao Contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
 
-    ${item} =   Set Variable   ${botao_Conectar}[${numero_item}]
+    ${item} =  Set Variable      ${botao_Conectar}[${numero_item}]
+    log  message= ${item}
     Manipular Element    ${item}
-    Capture Element Screenshot    ${item}    filename= conectar-contato-${numero_item}.png
+    Capture Element Screenshot    ${item}    filename=conectar-contato-${numero_item}.png
     Sleep   15
     Manipular Element   ${botao_EnviarSemNota}
     Sleep  15 
