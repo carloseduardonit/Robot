@@ -4,15 +4,13 @@ Resource   ../linkedin_locator.robot
 
 
 *** Variables ***
-#  | Analista de qualidade |  Quality Assurance Tester |  QA Analyst |  QA Engineer |  QA Automation Engineer |  QA Manual Tester |  QA Lead |  QA Manager |  QA Director |  QA Architect |  QA Consultant |  QA Specialist |  QA Associate |  QA Trainee |  QA Intern |
-#  | QA Automation Tester |  QA Automation Architect |  QA Automation Lead |  QA Automation Manager |  QA Automation Director |  QA Automation Consultant |  QA Automation Specialist |  QA Automation Associate |  QA Automation Trainee |  QA Automation Intern |
-#  | QA Automation Engineer |  QA Automation Tester |  QA Automation Architect |  QA Automation Lead |  QA Automation Manager |  QA Automation Director |  QA Automation Consultant |  QA Automation Specialist |  QA Automation Associate |  QA Automation Trainee |  QA Automation Intern 
-#  | QA Automation Engineer |  QA Automation Tester |  QA Automation Architect |  QA Automation Lead |  QA Automation Manager |  QA Automation Director |  QA Automation Consultant |  QA Automation Specialist |  QA Automation Associate |  QA Automation Trainee |  QA Automation Intern |
-# -----------
-#  | Tecnico de contabilidade | analista de contabilidade |  contador |  auditor |  controller |  analista fiscal |  analista tributário |  analista de custos |  analista de contas a pagar |  analista de contas a receber |  analista de folha de pagamento |  analista de tesouraria |  analista de controladoria |  analista de planejamento financeiro |  analista de orçamento |
-#  | auxiliar de contabilidade |  assistente de contabilidade |  estagiário de contabilidade |  trainee de contabilidade |  analista de auditoria interna |  analista de auditoria externa |  analista de compliance |  analista de riscos financeiros |  analista de controle interno |  analista de relatórios financeiros |  analista de consolidação financeira |
-#  | analista de contabilidade gerencial |  analista de contabilidade internacional |  analista de contabilidade tributária |  analista de contabilidade financeira |  analista de contabilidade de custos |  analista de contabilidade de patrimônio |  analista de contabilidade de receitas |  analista de contabilidade de despesas |  analista de contabilidade de ativos |  analista de contabilidade de passivos |
-${job}      QA
+# | QA Intern | QA Trainee | QA Associate | QA Manual Tester | QA Analyst | QA Specialist | QA Consultant | QA Automation Intern | QA Automation Trainee | QA Automation Associate | QA Automation Tester | QA Automation Engineer | QA Automation Specialist | QA Automation Consultant | QA Lead | QA Automation Lead | QA Architect | QA Automation Architect | QA Manager | QA Automation Manager | QA Director | QA Automation Director |
+
+# | Estagiário de Contabilidade | Trainee de Contabilidade | Auxiliar de Contabilidade | Assistente de Contabilidade | Técnico de Contabilidade | Analista de Contabilidade | Contador | Auditor | Controller | Analista Fiscal | Analista Tributário | Analista de Custos | Analista de Contas a Pagar | Analista de Contas a Receber | Analista de Folha de Pagamento | Analista de Tesouraria | Analista de Controladoria | Analista de Orçamento | Analista de Planejamento Financeiro | Analista de Auditoria Interna | Analista de Auditoria Externa | Analista de Compliance | Analista de Riscos Financeiros | Analista de Controle Interno | Analista de Relatórios Financeiros | Analista de Consolidação Financeira | Analista de Contabilidade Gerencial | Analista de Contabilidade Internacional | Analista de Contabilidade Tributária | Analista de Contabilidade Financeira | Analista de Contabilidade de Custos | Analista de Contabilidade de Patrimônio | Analista de Contabilidade de Receitas | Analista de Contabilidade de Despesas | Analista de Contabilidade de Ativos | Analista de Contabilidade de Passivos |
+
+# | Java Developer | Java Engineer | Java Programmer | Java Software Engineer | Java Software Developer | Java Application Developer | Java Web Developer | Java Backend Developer | Java Frontend Developer | Java Full Stack Developer | Java Mobile Developer | Java Cloud Developer |
+
+${job}     QA
 ${cidade}      São Paulo, 
 ${Pais}    Brasil
 ${Modalidade}    (Remoto)
@@ -20,6 +18,10 @@ ${span_Local_Vaga}      //span[contains(.,'${cidade} ${Pais} ${Modalidade}')]
 ${urlJob}    https://www.linkedin.com/jobs/
 
 *** Keywords ***
+Obter termo de pesquisa 
+    [Arguments]    ${job}    ${aspas}=False
+    Return From Keyword If    "${aspas}"=="True"    "${job}"
+    Return From Keyword If    "${aspas}"=="False"    ${job}
 
 Pesquisar para emprego no Linkedin
     [Documentation]    Pesquisar para emprego no Linkedin
@@ -28,7 +30,9 @@ Pesquisar para emprego no Linkedin
     Go To    ${urlJob}
     Sleep  15
     Element Should Be Visible    ${h2_title}
-    Input Text    ${campoSeach}   "${job}"
+    ${Auxiliar}=  Obter termo de pesquisa    ${job}     ${true}
+    Log    message=${Auxiliar}
+    Input Text    ${campoSeach}   ${Auxiliar}
     Press Keys    ${campoSeach}    ENTER
     Sleep    15
     Capture Page Screenshot    Vagas de ${job}.png
