@@ -67,7 +67,7 @@ Fazer Networking no linkedin
     #${quantidade_contatos} =    Get WebElements    ${div_contatos}
     #Log    message=${quantidade_contatos}
     #Seguir os contatos
-    
+    Conectar com os contatos
     #WHILE  ${contador} <= ${quantidade_contatos}
         
       #  ${contador} =  Set Variable    ${${contador} + 1}
