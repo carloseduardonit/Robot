@@ -44,11 +44,14 @@ Acesso as vagas
     ${Vagas} =    Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}
-        ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
-        ${Resposta} =  Is Element Visible    ${item}
-        IF    '${Resposta}' == 'False'
-            Acessar o cartao da Vaga    ${numero_vaga}  
-            Faça a Candidatura da vaga simplificada
+        ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
+        IF   ${teste} == 'False'           
+            ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
+            ${Resposta} =  Is Element Visible    ${item}
+            IF    '${Resposta}' == 'False'
+                Acessar o cartao da Vaga    ${numero_vaga}  
+                Faça a Candidatura da vaga simplificada
+            END
         END
        # Fechar o cartao da Vaga   ${${contador} + 1}
         ${Vagas} =   Get Element Count     ${div_vagas}
@@ -149,3 +152,14 @@ Remover aviso de segurança
     IF  '${resposta}' == 'True'
         Manipular Element    ${botao_continuarCandidatura}
     END
+Ja se candidatou a esta vaga?
+    [Documentation]    Ja se candidatou a esta vaga?
+    [Tags]    button    OK
+    [Arguments]    ${numero_item}
+
+    ${Candidatou} =  Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//li[contains(.,'Candidatou-se')]
+    ${resposta} =  Is Element Visible   ${Candidatou}
+    ${nao_exibir} =  Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//div[contains(.,'Não exibiremos mais esta vaga a você.')]
+    ${resposta1} =  Is Element Visible   ${nao_exibir}
+    Return From Keyword If   '${resposta}'=='${True}' or '${resposta1}'=='${True}'    '${True}'
+    Return From Keyword     '${False}' 
