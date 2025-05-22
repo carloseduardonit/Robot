@@ -16,8 +16,9 @@ ${campoSeach}    //input[contains(@class,'basic-input jobs-search-box__text-inpu
 # Titulos
 ${h3_nome}      //h3[contains(.,'${name}')]
 #${h2_title}    //h2[contains(.,'Conheça as oportunidades')]
-${h2_title}    //h2[contains(.,'Vagas selecionadas para você')]
-
+#${h2_title}    //h2[contains(.,'Vagas selecionadas para você')]
+#${h2_title}    //h2[contains(.,'Encontre seu próximo cargo')]
+${h2_title}    //h2[contains(.,'Vagas que mais combinam com seu perfil')]
 #  Botao da Filtragem de vagas
 ${botao_filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura simplificada.']
 
@@ -43,7 +44,8 @@ ${item}
 
 # Variaveis de  inclusão de  contato
 ${div_contatos}    //div[@data-view-name='search-entity-result-universal-template']
-${botao_Seguir}    //span[contains(.,'Seguir')]
-${botao_Conectar}  //span[contains(.,'Conectar')]
+${botao}     //span[@class='artdeco-button__text']
+${botao_Seguir}=      //span[@class='artdeco-button__text'][contains(.,'Seguir')]
+${botao_Conectar}      //span[@class='artdeco-button__text'][contains(.,'Conectar')]
 ${botao_EnviarSemNota}    //button[contains(@aria-label,'Enviar sem nota')]
 ${botao_AdicionarNota}    //button[contains(@aria-label,'Adicionar nota')]

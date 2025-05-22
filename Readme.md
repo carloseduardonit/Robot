@@ -68,6 +68,10 @@
 ```dos
    pip install --upgrade robotframework-requests
 ```
+- **Instalar ou atualizar Library Faker**
+```dos
+    pip install robotframework-faker
+```
 - **Verificar as Librarys do Python**
 ```dos
     pip list

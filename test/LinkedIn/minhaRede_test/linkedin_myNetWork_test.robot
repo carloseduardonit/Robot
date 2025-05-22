@@ -27,8 +27,9 @@ Seguir o contato
     [Documentation]    Seguir o contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato  NOK
-    
-    Manipular Element    ${botao_Seguir}[${numero_item}]
+    ${elemento} =   ${botao_Seguir}[${numero_item}]
+    Log    message= ${elemento}
+    Manipular Element    ${elemento}
     Sleep   15
 Conectar com os contatos
     #Wait Until Element Is Visible    ${botao_Conectar}
@@ -41,17 +42,18 @@ Conectar com os contatos
         Exit For Loop
     ELSE
         Log    message= São ${quantidade_contatos} contatos para conectar
+        FOR    ${contador}    IN RANGE    0   ${quantidade_contatos}
+            Conectar ao Contato    ${${contador} + 1}
+        END
     END
-    FOR    ${contador}    IN RANGE    0   ${quantidade_contatos}
-        Conectar ao Contato    ${${contador} + 1}
-    END
+    
 
 Conectar ao Contato
     [Documentation]    Concetar ao Contato em porcesso de desenvolvimento
     [Arguments]    ${numero_item}=1
     [Tags]    contato 
 
-    ${item} =  Set Variable      ${botao_Conectar}[${numero_item}]
+    ${item} =   Set Variable  ${botao_Conectar}[${numero_item}]
     log  message= ${item}
     Manipular Element    ${item}
     Capture Element Screenshot    ${item}    filename=conectar-contato-${numero_item}.png
