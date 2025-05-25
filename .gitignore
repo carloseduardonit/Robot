@@ -19,6 +19,7 @@ selenium-screenshot-*.png
 selenium-element-screenshot-*.png
 paginavaga-*.png
 vaga-*.png
+O nome da vaga na *º pagina na posição * das vagas.png
 Vagas de * no modelo de vaga simplificada.png
 Vagas de *.png
 Contato de *.png
@@ -27,4 +28,5 @@ login *.png
 *.txt
 /*.
 test/LinkedIn/linkedin.py
+
 

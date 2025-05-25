@@ -3,6 +3,7 @@ Library     RPA.Browser.Selenium
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
 *** Variables ***
+${Pagina}    1
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 ${vaga_com_aviso}   //h2[contains(.,'Lembrete de segurança da pesquisa de vagas')]
@@ -17,10 +18,8 @@ Acessar o cartao da Vaga
 
     ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
     Wait Until Element Is Visible    locator=${item}    timeout= 30
-    Capture Element Screenshot    locator=${item}     filename=vaga-${numero_item}.png
-    Log    message= ${item}     
+    Capture Element Screenshot    locator=${item}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
     Click Element If Visible    ${item}
-    #Manipular Element   locator=${item}
     Capture Page Screenshot    paginavaga-${numero_item}.png
 Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
     [Documentation]    Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
@@ -154,7 +153,7 @@ Remover aviso de segurança
     END
 Ja se candidatou a esta vaga?
     [Documentation]    Ja se candidatou a esta vaga?
-    [Tags]    button    OK
+    [Tags]    validacao    OK
     [Arguments]    ${numero_item}
 
     ${Candidatou} =  Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//li[contains(.,'Candidatou-se')]
