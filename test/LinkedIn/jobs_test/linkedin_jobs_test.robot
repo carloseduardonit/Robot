@@ -16,11 +16,13 @@ Acessar o cartao da Vaga
     [Tags]    cartaosVagas    OK
     [Arguments]    ${numero_item}
 
-    ${item}    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
+    ${item}=    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
+    ${conteudo}=     Set Variable    //div[contains(@class,'job-details--wrapper')]
     Wait Until Element Is Visible    locator=${item}    timeout= 30
     Capture Element Screenshot    locator=${item}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
     Click Element If Visible    ${item}
-    Capture Page Screenshot    paginavaga-${numero_item}.png
+    Capture Element Screenshot    locator=${conteudo}   filename=O conteudo da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png 
+
 Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
     [Documentation]    Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
     [Tags]    Linkedin    NOK
@@ -116,7 +118,6 @@ Existe algum aviso de segurança?
     ${resposta} =  Is Element Visible   ${vaga_com_aviso}
     Return From Keyword    ${resposta}
 
-
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
     [Tags]    Linkedin    OK
@@ -151,6 +152,7 @@ Remover aviso de segurança
     IF  '${resposta}' == 'True'
         Manipular Element    ${botao_continuarCandidatura}
     END
+
 Ja se candidatou a esta vaga?
     [Documentation]    Ja se candidatou a esta vaga?
     [Tags]    validacao    OK
