@@ -15,4 +15,9 @@
 ...      resposta=Intermediário
 &{q8}    pergunta=Você possui algum familiar (como pais, irmãos, sogros, cunhados, cônjuges, ou filhos, enteados, padrasto/madrasta, genro/ nora, amigo íntimo ou pessoa próxima (com quem você tem um relacionamento significativo e contínuo) que atualmente trabalha na CI&T?
 ...      resposta=Não
+&{q9}    pergunta=Você possui alguma deficiência?
+...      resposta=Não
+&{q10}   pergunta=Qual sua pretensão salarial?
+...      resposta=5000.00
 @{gestoes}     ${q1}    ${q2}    ${q3}    ${q4}    ${q5}    ${q6}    ${q7}    ${q8}
+...            ${q9}    ${q10}
