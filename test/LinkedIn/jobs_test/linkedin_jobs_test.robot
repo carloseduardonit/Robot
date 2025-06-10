@@ -3,7 +3,7 @@ Library     RPA.Browser.Selenium
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
 *** Variables ***
-${Pagina}    1
+${Pagina}   0
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 ${vaga_com_aviso}   //h2[contains(.,'Lembrete de segurança da pesquisa de vagas')]
@@ -16,10 +16,11 @@ Acessar o cartao da Vaga
     [Tags]    cartaosVagas    OK
     [Arguments]    ${numero_item}
 
+    ${card_vagas}=    Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
     ${item}=    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
     ${conteudo}=     Set Variable    //div[contains(@class,'job-details--wrapper')]
     Wait Until Element Is Visible    locator=${item}    timeout= 30
-    Capture Element Screenshot    locator=${item}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
+    Capture Element Screenshot    locator=${card_vagas}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
     Click Element If Visible    ${item}
     Capture Element Screenshot    locator=${conteudo}   filename=O conteudo da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png 
 
@@ -39,9 +40,11 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
 Acesso as vagas
     [Documentation]    Acesso as vagas    
     [Tags]    Linkedin    OK
-
+    ${auxiliar} =  Set Variable    ${${Pagina} + 1}
+    ${Pagina} =  Set Variable    ${auxiliar}
+    Log    message=Pagina ${Pagina} acessada
     Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
-    Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+    #Press Keys   ${div_vagas}    END
     ${Vagas} =    Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}

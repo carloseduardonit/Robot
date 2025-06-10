@@ -1,4 +1,9 @@
+*** Settings ***
+Library    RPA.Browser.Selenium
 *** Variables ***
+${pergunta}=   //label[contains(.,'Como esta sua expectativa de valor no CLT?')]
+${input_resposta}=  //input[contains(@class,'error-field artdeco-text-input--input')]
+${selecionar_resposta}=     //select[contains(@aria-describedby,'text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-4243028816-20049339042-multipleChoice-error')]
 &{q1}    pergunta=For how long have you worked as a Tester?     
 ...      resposta=I have worked as a QA Manual Engineer for 2 years, focusing on manual testing, mobile testing, and accessibility (AX). During this time, I also gained experience using tools like Zephyr and Jira, and I'm currently deepening my knowledge in API testing and test automation with frameworks like Robot.
 &{q2}    pergunta=For how long have you worked with Automation testing?    
@@ -21,3 +26,30 @@
 ...      resposta=5000.00
 @{gestoes}     ${q1}    ${q2}    ${q3}    ${q4}    ${q5}    ${q6}    ${q7}    ${q8}
 ...            ${q9}    ${q10}
+
+*** Keywords ***
+Gerar patch para pergunta "${pergunta}"
+    ${patch}=  //label[contains(.,'${pergunta}')]
+    RETURN    ${patch}
+
+Gerar patch para resposta "${resposta}"
+    ${patch}=  //input[contains(.,'${resposta}')]
+    ${auxiliar}=  Element Should Be Visible    locator=${patch}
+    IF   '${auxiliar}' == 'True'
+        Set Focus To Element    ${patch}
+        Click Element    ${patch}     
+    END
+    RETURN    ${patch}
+
+Preencher Formulário
+    [Arguments]    ${gestoes}
+    ${formulario}=    Create Dictionary
+    FOR    ${questao}    IN    @{gestoes}
+        ${questao_dict}=    Set Variable    ${questao}
+        ${pergunta}=    Get From Dictionary    ${questao_dict}    pergunta
+        ${resposta}=    Get From Dictionary    ${questao_dict}    resposta
+        Set To Dictionary    ${formulario}    ${pergunta}    ${resposta}
+    END
+    Log    ${formulario}
+
+Preencher a questão
