@@ -1,5 +1,6 @@
 *** Settings ***
 Library     RPA.Browser.Selenium
+Library     String
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
 *** Variables ***
@@ -92,12 +93,30 @@ Canditada ao processo simples
         Manipular Element   ${botao_enviarCandidatura}
         Manipular Element    ${botao_finalizarCandidatura}
     END
+Copiar o link da vaga
+    [Documentation]    Copiar o link da vaga
+    [Tags]    link*-  OK
+
+    ${resposta} =  Is Element Visible   ${botao_iniciarCandidaturaVagaPadrao}
+    IF  '${resposta}' == 'True'
+        ${link}=     Get Element Attribute   ${botao_iniciarCandidaturaVagaPadrao}   href
+        Log    message=Link da vaga padrão: ${link}
+        Return From Keyword    ${link}
+        Capture Page Screenshot     Vagas de ${job} no modelo de vaga padrão.png
+    ELSE
+        Log    message=Botão de candidatura padrão não encontrado
+        Return From Keyword    ${None}
+    END
 Clique na filtragem da Candidatura simplificada
     [Documentation]    Clique na filtragem da Candidatura simplificada
     [Tags]    button    OK
-
-    Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150s
-    Click Button  ${botao_filtragemVagaSimplificada}
+    ${Auxiliar}=  Is Element Visible   locator=${botao_filtragemVagaSimplificada}
+    IF    '${Auxiliar}' == 'True'
+        Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150
+        Click Button  ${botao_filtragemVagaSimplificada}
+    ELSE
+        Log    message=Botão de filtragem para vaga simplificada não encontrado
+    END
     Sleep    15
     Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 Esta canditado a esta vaga?
@@ -146,6 +165,19 @@ Vaga desejada
         Faça a Candidatura da vaga simplificada
     END
     # Fechar o cartao da Vaga   ${${contador} + 1}
+Gerar Link da Gupy
+    [Documentation]     Gerar Link da Gupy
+    [Tags]    Link    OK
+    ${url_gupy} =  Set Variable    gupy.io
+    ${resposta}=     Copiar o link da vaga
+    ${contem}=   Should Contain    ${resposta}    ${url_gupy}
+    IF    '${resposta}' != '${None}' and "${contem}" == "True"
+        Log    message=Link da vaga: ${resposta}
+        Set Suite Variable    ${link_vaga}    ${resposta}
+    ELSE
+        Log    message=Link da vaga não encontrado
+        Set Suite Variable    ${link_vaga}    ${None}
+    END
 
 Remover aviso de segurança
     [Documentation]    Remover aviso de segurança
