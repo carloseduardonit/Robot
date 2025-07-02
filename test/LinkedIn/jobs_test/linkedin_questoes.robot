@@ -29,6 +29,7 @@ ${selecionar_resposta}=     //select[contains(@aria-describedby,'text-entity-lis
 
 *** Keywords ***
 Gerar patch para pergunta "${pergunta}"
+    [Tags]     No_Test
     ${patch}=  //label[contains(.,'${pergunta}')]
     RETURN    ${patch}
 

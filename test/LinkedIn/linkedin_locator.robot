@@ -24,7 +24,8 @@ ${botao_filtragemVagaSimplificada}    //button[@aria-label='Filtro Candidatura s
 
 # Path do progresso da candidatura
 ${path_progresso}   //progress
-
+# Botao da Candidatura padrão
+${botao_iniciarCandidaturaVagaPadrao}   //button[@role='link'][contains(.,'Candidatar-se')][1]
 # Botao da Candidatura simplificada
 ${botao_iniciarCandidaturaVagaSimplificada}          //span[@class='artdeco-button__text'][contains(.,'Candidatura simplificada')][1]
 ${botao_avancarCandidatura}       //span[@class='artdeco-button__text'][contains(.,'Avançar')]
