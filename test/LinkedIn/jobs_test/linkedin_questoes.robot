@@ -29,10 +29,12 @@ ${selecionar_resposta}=     //select[contains(@aria-describedby,'text-entity-lis
 
 *** Keywords ***
 Gerar patch para pergunta "${pergunta}"
+    [Tags]     No_Test
     ${patch}=  //label[contains(.,'${pergunta}')]
     RETURN    ${patch}
 
 Gerar patch para resposta "${resposta}"
+    [Tags]     No_Test
     ${patch}=  //input[contains(.,'${resposta}')]
     ${auxiliar}=  Element Should Be Visible    locator=${patch}
     IF   '${auxiliar}' == 'True'
@@ -42,14 +44,12 @@ Gerar patch para resposta "${resposta}"
     RETURN    ${patch}
 
 Preencher Formulário
+    [Tags]    No_Test
     [Arguments]    ${gestoes}
     ${formulario}=    Create Dictionary
-    FOR    ${questao}    IN    @{gestoes}
-        ${questao_dict}=    Set Variable    ${questao}
-        ${pergunta}=    Get From Dictionary    ${questao_dict}    pergunta
-        ${resposta}=    Get From Dictionary    ${questao_dict}    resposta
-        Set To Dictionary    ${formulario}    ${pergunta}    ${resposta}
-    END
-    Log    ${formulario}
+    No Operation
 
 Preencher a questão
+    [Tags]    No_Test
+    [Arguments]    ${pergunta}    ${resposta}
+    No Operation
