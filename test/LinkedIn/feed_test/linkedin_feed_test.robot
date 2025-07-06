@@ -27,12 +27,12 @@ Pesquisar para emprego no Linkedin
     [Documentation]    Pesquisar para emprego no Linkedin
     [Tags]    Pesquisar_emprego
     Wait Until Element Is Visible   locator=${h3_nome}    timeout=150
-    Go To    ${urlJob}
+    RPA.Browser.Selenium.Go To    ${urlJob}
     Sleep  15
     Element Should Be Visible    ${h2_title}
     ${Auxiliar}=  Obter termo de pesquisa    ${job}     ${true}
     Log    message=${Auxiliar}
     Input Text    ${campoSeach}   ${Auxiliar}
-    Press Keys    ${campoSeach}    ENTER
+    RPA.Browser.Selenium.Press Keys    ${campoSeach}    ENTER
     Sleep    15
     Capture Page Screenshot    Vagas de ${job}.png

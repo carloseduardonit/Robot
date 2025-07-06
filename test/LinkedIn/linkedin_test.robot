@@ -50,7 +50,8 @@ Acessar o cartoes de Vagas
     ${contador}      Set Variable      0
     Pesquisar para emprego no Linkedin
     Clique na filtragem da Candidatura simplificada
-    Reducao da tela do navegador   3
+    #Reducao da tela do navegador   3
+   
     Acesso as vagas
     Manipular Element    ${botao_avançarPaginaCartao}
     Acesso as vagas

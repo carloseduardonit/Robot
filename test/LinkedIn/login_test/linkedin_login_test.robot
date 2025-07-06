@@ -12,7 +12,7 @@ ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_
 Open Linkedin
     [Documentation]    Open Linkedin sem parametros
     [Tags]    login
-    Open Browser   ${loginLinkedin}     firefox
+    RPA.Browser.Selenium.Open Browser   ${loginLinkedin}     firefox
     ...  options = add_experimental_option("detach", True)
     Set Window Size    1300   720
     Maximize Browser Window
@@ -26,7 +26,7 @@ Open Linkedin I
     [Documentation]   Open Linkedin  com parametros
     [Arguments]    ${email_usuario}   ${senha_usuario}
     [Tags]     login
-    Open Browser   ${loginLinkedin}  firefox
+    RPA.Browser.Selenium.Open Browser   ${loginLinkedin}  firefox
     ...  options = add_experimental_option("detach", True)
     Maximize Browser Window
     Input Text    id=username    ${email_usuario}

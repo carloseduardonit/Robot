@@ -17,11 +17,10 @@ ${urlMinhaRede}    https://www.linkedin.com/mynetwork/grow/
 
 *** Keywords ***
 
-
 Close Linkedin
     [Documentation]    Fechar o navegador do linkedin
     [Tags]     Fechar
-    Close Browser
+    RPA.Browser.Selenium.Close Browser
 
 Fechar o cartao da Vaga
     [Documentation]    Fechar o cartão  da Vaga em porcesso de desenvolvimento
@@ -40,11 +39,11 @@ Pesquisar de contato como "${nome}"
     [Tags]    contato 
     
     Wait Until Element Is Visible   locator=${h3_nome}   timeout=150
-    Go To    url=${urlMinhaRede}
+    RPA.Browser.Selenium.Go To    url=${urlMinhaRede}
     Sleep  15
     ${campoSeach} =    Set Variable    //input[@data-view-name='search-global-typeahead-input']
     Input Text    ${campoSeach}   ${nome}
-    Press Keys    ${campoSeach}    ENTER
+    RPA.Browser.Selenium.Press Keys    ${campoSeach}    ENTER
     Sleep  15
     Wait Until Element Is Visible    //a[contains(.,'Ver todos os resultados de pessoas')][1]
     Click Element    //a[contains(.,'Ver todos os resultados de pessoas')][1]

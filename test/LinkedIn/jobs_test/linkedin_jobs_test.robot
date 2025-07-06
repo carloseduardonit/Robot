@@ -1,5 +1,6 @@
 *** Settings ***
 Library     RPA.Browser.Selenium
+#Library     Browser
 Library     String
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
@@ -12,6 +13,10 @@ ${botao_continuarCandidatura}    //span[contains(.,'Continuar candidatura')]
 ${Vaga_Fechada}    //div[@class='job-card-container__footer-item--highlighted display-block t-12 pt1'][contains(.,'Não exibiremos mais esta vaga a você.')]
 
 *** Keywords ***
+path do Link do Cartão da Vaga de Numero "${numero_item}"
+    [Documentation]    Link do Cartão da Vaga
+    [Tags]    Link    No_Test
+    RETURN From Keyword  //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
 Acessar o cartao da Vaga
     [Documentation]    Acessar o cartão da Vaga
     [Tags]    cartaosVagas    OK
@@ -45,10 +50,13 @@ Acesso as vagas
     ${Pagina} =  Set Variable    ${auxiliar}
     Log    message=Pagina ${Pagina} acessada
     Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
-    #Press Keys   ${div_vagas}    END
-    ${Vagas} =    Get Element Count   ${div_vagas}
+    ${Vagas} =    RPA.Browser.Selenium.Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}
+       # ${link}=  Set Variable    //div[contains(@class,'authentication-outlet')]
+        #Press Keys   ${link}  PAGE_DOWN
+        #Execute JavaScript    arguments[0].scrollIntoView({behavior: "smooth", block: "center"});    ${link}
+        #Scroll Element Into View  selector= ${link}
         ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
         IF   ${teste} == 'False'           
             ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
@@ -59,7 +67,7 @@ Acesso as vagas
             END
         END
        # Fechar o cartao da Vaga   ${${contador} + 1}
-        ${Vagas} =   Get Element Count     ${div_vagas}
+        ${Vagas} =   RPA.Browser.Selenium.Get Element Count     ${div_vagas}
         ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
     END
 Canditada ao processo extensivo
