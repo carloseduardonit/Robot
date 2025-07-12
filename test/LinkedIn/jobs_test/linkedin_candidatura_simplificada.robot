@@ -1,10 +1,6 @@
 
 *** Settings ***
-Library     RPA.Browser.Selenium
-#Library     Browser
-Library     String
-Resource    ../linkedin_locator.robot
-Resource    ../linkedin_suporte.robot
+Resource   linkedin_candidatura.robot
 
 
 *** Keywords ***
@@ -50,4 +46,17 @@ Candidatar ao processo simples
         Manipular Element   ${botao_revisarCandidatura}
         Manipular Element   ${botao_enviarCandidatura}
         Manipular Element    ${botao_finalizarCandidatura}
+    END
+
+Faça a Candidatura da vaga simplificada
+    [Documentation]    aplicar para a vaga simplidicada
+    [Tags]    Linkedin    OK
+
+    Capture Page Screenshot
+    ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
+    IF    '${resposta}' == 'True'
+        Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
+        Remover aviso de segurança
+        Candidatar ao processo simples
+        Candidatar ao processo extensivo
     END

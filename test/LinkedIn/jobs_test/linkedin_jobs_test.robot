@@ -11,8 +11,8 @@ Resource    linkedin_questoes.robot
 ${Pagina}   0
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
-${vaga_com_aviso}   //h2[contains(.,'Lembrete de segurança da pesquisa de vagas')]
-${botao_continuarCandidatura}    //span[contains(.,'Continuar candidatura')]
+
+
 ${Vaga_Fechada}    //div[@class='job-card-container__footer-item--highlighted display-block t-12 pt1'][contains(.,'Não exibiremos mais esta vaga a você.')]
 
 *** Keywords ***
@@ -119,14 +119,7 @@ Esta vaga está fechada?
     ${resposta} =  Is Element Visible   ${Vaga_Fechada}[${numero_item}]
     Return From Keyword    ${resposta}
 
-Existe algum aviso de segurança?
-    [Documentation]    Existe algum aviso de segurança?
-    [Tags]    button    OK
 
-    ${resposta} =  Is Element Visible   ${vaga_com_aviso}
-    Return From Keyword    ${resposta}
-
-    
 
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
@@ -167,14 +160,6 @@ Gerar Link da Gupy
         Set Suite Variable    ${link_vaga}    ${None}
     END
 
-Remover aviso de segurança
-    [Documentation]    Remover aviso de segurança
-    [Tags]    button    OK
-
-    ${resposta} =  Existe algum aviso de segurança?
-    IF  '${resposta}' == 'True'
-        Manipular Element    ${botao_continuarCandidatura}
-    END
 
 Ja se candidatou a esta vaga?
     [Documentation]    Ja se candidatou a esta vaga?
