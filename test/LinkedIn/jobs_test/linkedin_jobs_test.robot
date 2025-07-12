@@ -2,6 +2,7 @@
 Library     RPA.Browser.Selenium
 #Library     Browser
 Library     String
+Library    RPA.Smartsheet
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
 Resource    linkedin_candidatura_gupy.robot
@@ -49,22 +50,24 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
         Acesso as vagas
         Manipular Element    ${botao_avançarPaginaCartao}
         Sleep    150
-        Capture Page Screenshot   pagina $pagina.png
+        Capture Page Screenshot   pagina ${pagina}.png
     END
     
 
 Acesso as vagas
     [Documentation]    Acesso as vagas    
     [Tags]    Linkedin    OK
-    ${auxiliar} =  Set Variable    ${${Pagina} + 1}
-    ${Pagina} =  Set Variable    ${auxiliar}
+     
+    ${Pagina}=    Evaluate    ${Pagina} + 1
+    Set Global Variable    Pagina    ${Pagina}
     Log    message=Pagina ${Pagina} acessada
+
     Wait Until Element Is Visible    locator=${div_vagas}    timeout=150
     ${Vagas} =    RPA.Browser.Selenium.Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}
         ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
-        IF   ${teste} == 'False'           
+        IF   not ${teste}           
             ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
             ${Resposta} =  Is Element Visible    ${item}
             IF    '${Resposta}' == 'False'
@@ -93,18 +96,6 @@ Copiar o link da vaga
         Log    message=Botão de candidatura padrão não encontrado
         Return From Keyword    ${None}
     END
-Clique na filtragem da Candidatura simplificada
-    [Documentation]    Clique na filtragem da Candidatura simplificada
-    [Tags]    button    OK
-    ${Auxiliar}=  Is Element Visible   locator=${botao_filtragemVagaSimplificada}
-    IF    '${Auxiliar}' == 'True'
-        Wait Until Element Is Visible    locator=${botao_filtragemVagaSimplificada}   timeout=150
-        Click Button  ${botao_filtragemVagaSimplificada}
-    ELSE
-        Log    message=Botão de filtragem para vaga simplificada não encontrado
-    END
-    Sleep    15
-    Capture Page Screenshot     Vagas de ${job} no modelo de vaga simplificada.png
 Esta canditado a esta vaga?
     [Documentation]    Esta canditado a esta vaga?
     [Tags]    button     OK
@@ -114,25 +105,11 @@ Esta canditado a esta vaga?
     Return From Keyword    ${resposta}
 Esta vaga está fechada?
     [Documentation]    Esta vaga está fechada
-    [Tags]    button
+    [Tags]   Validação    OK
     [Arguments]    ${numero_item}
     ${resposta} =  Is Element Visible   ${Vaga_Fechada}[${numero_item}]
     Return From Keyword    ${resposta}
 
-
-
-Faça a Candidatura da vaga simplificada
-    [Documentation]    aplicar para a vaga simplidicada
-    [Tags]    Linkedin    OK
-
-    Capture Page Screenshot
-    ${resposta} =  Is Element Visible     ${botao_iniciarCandidaturaVagaSimplificada}
-    IF    '${resposta}' == 'True'
-        Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
-        Remover aviso de segurança
-        Candidatar ao processo simples
-        Candidatar ao processo extensivo
-    END
 
 Vaga desejada
     [Documentation]    Vaga desejada
@@ -161,14 +138,3 @@ Gerar Link da Gupy
     END
 
 
-Ja se candidatou a esta vaga?
-    [Documentation]    Ja se candidatou a esta vaga?
-    [Tags]    validacao    OK
-    [Arguments]    ${numero_item}
-
-    ${Candidatou} =  Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//li[contains(.,'Candidatou-se')]
-    ${resposta} =  Is Element Visible   ${Candidatou}
-    ${nao_exibir} =  Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//div[contains(.,'Não exibiremos mais esta vaga a você.')]
-    ${resposta1} =  Is Element Visible   ${nao_exibir}
-    Return From Keyword If   '${resposta}'=='${True}' or '${resposta1}'=='${True}'    '${True}'
-    Return From Keyword     '${False}' 
