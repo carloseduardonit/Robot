@@ -4,6 +4,9 @@ Library     RPA.Browser.Selenium
 Library     String
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
+Resource    linkedin_candidatura_gupy.robot
+Resource    linkedin_candidatura_simplificada.robot
+Resource    linkedin_questoes.robot
 *** Variables ***
 ${Pagina}   0
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
@@ -25,7 +28,14 @@ Acessar o cartao da Vaga
     ${card_vagas}=    Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
     ${item}=    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
     ${conteudo}=     Set Variable    //div[contains(@class,'job-details--wrapper')]
-    Wait Until Element Is Visible    locator=${item}    timeout= 30
+
+    # Captura o elemento  como  WebElement
+    ${el}=    Get WebElement     ${item}
+
+    Log     ${el}
+    # Executa o JavaScript para rolar o elemento para o centro da tela
+    Wait Until Page Contains Element  ${el}    timeout=150
+    Wait Until Element Is Visible    locator=${item}    timeout= 150
     Capture Element Screenshot    locator=${card_vagas}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
     Click Element If Visible    ${item}
     Capture Element Screenshot    locator=${conteudo}   filename=O conteudo da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png 
@@ -53,10 +63,6 @@ Acesso as vagas
     ${Vagas} =    RPA.Browser.Selenium.Get Element Count   ${div_vagas}
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}
-       # ${link}=  Set Variable    //div[contains(@class,'authentication-outlet')]
-        #Press Keys   ${link}  PAGE_DOWN
-        #Execute JavaScript    arguments[0].scrollIntoView({behavior: "smooth", block: "center"});    ${link}
-        #Scroll Element Into View  selector= ${link}
         ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
         IF   ${teste} == 'False'           
             ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
@@ -70,37 +76,9 @@ Acesso as vagas
         ${Vagas} =   RPA.Browser.Selenium.Get Element Count     ${div_vagas}
         ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
     END
-Canditada ao processo extensivo
-    [Documentation]    Canditada ao processo extensivo
-    [Tags]    Linkedin    OK
 
-    ${resposta} =  Is Element Visible   ${path_progresso}
-    IF  '${resposta}' == 'True'
-        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
-        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
-        ${progresso_valor} =    Convert To Number   ${progresso_valor}
-        WHILE    ${progresso_valor} < 100
-                Manipular Element   ${botao_avancarCandidatura} 
-                Manipular Element   ${botao_revisarCandidatura}
-                Manipular Element   ${botao_enviarCandidatura}           
-            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
-            ${progresso_valor} =  Convert To Number   ${progresso_valor}
-            Sleep    15
-        END 
-        Capture Page Screenshot 
-        Manipular Element    ${botao_finalizarCandidatura}
-    END
-## Fechar o navegador
-Canditada ao processo simples
-    [Documentation]    Canditada ao processo simples
-    [Tags]    Linkedin    OK
 
-    ${resposta} =  Is Element Visible  ${path_progresso}
-    IF  '${resposta}' == 'False' 
-        Manipular Element   ${botao_revisarCandidatura}
-        Manipular Element   ${botao_enviarCandidatura}
-        Manipular Element    ${botao_finalizarCandidatura}
-    END
+
 Copiar o link da vaga
     [Documentation]    Copiar o link da vaga
     [Tags]    link*-  OK
@@ -148,6 +126,8 @@ Existe algum aviso de segurança?
     ${resposta} =  Is Element Visible   ${vaga_com_aviso}
     Return From Keyword    ${resposta}
 
+    
+
 Faça a Candidatura da vaga simplificada
     [Documentation]    aplicar para a vaga simplidicada
     [Tags]    Linkedin    OK
@@ -157,8 +137,8 @@ Faça a Candidatura da vaga simplificada
     IF    '${resposta}' == 'True'
         Manipular Element    ${botao_iniciarCandidaturaVagaSimplificada}
         Remover aviso de segurança
-        Canditada ao processo simples
-        Canditada ao processo extensivo
+        Candidatar ao processo simples
+        Candidatar ao processo extensivo
     END
 
 Vaga desejada
