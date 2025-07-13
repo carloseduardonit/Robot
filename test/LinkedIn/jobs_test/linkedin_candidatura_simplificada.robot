@@ -4,6 +4,54 @@ Resource   linkedin_candidatura.robot
 
 
 *** Keywords ***
+Acesso as vagas
+    [Documentation]    Acessa a listagem de vagas da página atual 
+    ...    e inicia candidatura nas que ainda não foram aplicadas.  
+    [Tags]    Linkedin    OK
+     
+    ${Pagina}=    Evaluate    ${Pagina} + 1
+    Set Global Variable    ${Pagina}
+    Log    message=Pagina ${Pagina} acessada
+
+    Wait Until Element Is Visible    locator=${div_vagas}    timeout=30s
+    ${Vagas} =    RPA.Browser.Selenium.Get Element Count   ${div_vagas}
+    ${numero_vaga} =  Set Variable    0
+    WHILE  ${numero_vaga} < ${Vagas}
+        ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
+        IF   not ${teste}           
+            ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
+            ${Resposta} =  Is Element Visible    ${item}
+            IF    not ${Resposta}
+                Acessar o cartao da Vaga    ${numero_vaga}  
+                Faça a Candidatura da vaga simplificada
+            END
+        END
+       # Fechar o cartao da Vaga   ${${contador} + 1}
+        ${Vagas} =   RPA.Browser.Selenium.Get Element Count     ${div_vagas}
+        ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
+    END
+
+Acessar o cartao da Vaga
+     [Documentation]    Acessa o cartão da vaga pelo número de item 
+     ...    e realiza captura de tela do cartão e seu conteúdo.
+    [Tags]    cartaosVagas    OK
+    [Arguments]    ${numero_item}
+
+    ${card_vagas}=    Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]
+    ${item}=    Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//a
+    ${conteudo}=     Set Variable    //div[contains(@class,'job-details--wrapper')]
+
+    # Captura o elemento  como  WebElement
+    ${el}=    Get WebElement     ${item}
+
+    Log     ${el}
+    # Executa o JavaScript para rolar o elemento para o centro da tela
+    Wait Until Page Contains Element  ${el}    timeout=150
+    Wait Until Element Is Visible    locator=${item}    timeout= 150
+    Capture Element Screenshot    locator=${card_vagas}     filename=O nome da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png  
+    Click Element If Visible    ${item}
+    Capture Element Screenshot    locator=${conteudo}   filename=O conteudo da vaga na ${Pagina}º pagina na posição ${numero_item}º das vagas.png 
+
 Candidatar ao processo extensivo
     [Documentation]    Realiza a candidatura automática em um processo seletivo com etapas progressivas.
     ...                Essa keyword verifica se a barra de progresso da candidatura está visível.
