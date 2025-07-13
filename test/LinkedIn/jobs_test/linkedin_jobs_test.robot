@@ -29,24 +29,6 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
         Capture Page Screenshot   pagina ${pagina}.png
     END
     
-
-
-
-
-Copiar o link da vaga
-    [Documentation]    Copiar o link da vaga
-    [Tags]    link*-  OK
-
-    ${resposta} =  Is Element Visible   ${botao_iniciarCandidaturaVagaPadrao}
-    IF  '${resposta}' == 'True'
-        ${link}=     Get Element Attribute   ${botao_iniciarCandidaturaVagaPadrao}   href
-        Log    message=Link da vaga padrão: ${link}
-        Return From Keyword    ${link}
-        Capture Page Screenshot     Vagas de ${job} no modelo de vaga padrão.png
-    ELSE
-        Log    message=Botão de candidatura padrão não encontrado
-        Return From Keyword    ${None}
-    END
 Esta canditado a esta vaga?
     [Documentation]    Esta canditado a esta vaga?
     [Tags]    button     OK
@@ -61,7 +43,6 @@ Esta vaga está fechada?
     ${resposta} =  Is Element Visible   ${Vaga_Fechada}[${numero_item}]
     Return From Keyword    ${resposta}
 
-
 Vaga desejada
     [Documentation]    Vaga desejada
     [Tags]    ON
@@ -74,18 +55,4 @@ Vaga desejada
         Faça a Candidatura da vaga simplificada
     END
     # Fechar o cartao da Vaga   ${${contador} + 1}
-Gerar Link da Gupy
-    [Documentation]     Gerar Link da Gupy
-    [Tags]    Link    OK
-    ${url_gupy} =  Set Variable    gupy.io
-    ${resposta}=     Copiar o link da vaga
-    ${contem}=   Should Contain    ${resposta}    ${url_gupy}
-    IF    '${resposta}' != '${None}' and "${contem}" == "True"
-        Log    message=Link da vaga: ${resposta}
-        Set Suite Variable    ${link_vaga}    ${resposta}
-    ELSE
-        Log    message=Link da vaga não encontrado
-        Set Suite Variable    ${link_vaga}    ${None}
-    END
-
 

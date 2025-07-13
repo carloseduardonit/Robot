@@ -12,8 +12,8 @@ ${loginLinkedin}    https://www.linkedin.com/login/pt?fromSignIn=true&trk=guest_
 Open Linkedin
     [Documentation]    Open Linkedin sem parametros
     [Tags]    login
-    RPA.Browser.Selenium.Open Browser   ${loginLinkedin}     firefox
-    ...  options = add_experimental_option("detach", True)
+    # RPA.Browser.Selenium.Open Browser   ${loginLinkedin}     firefox  options = add_experimental_option("detach", True)
+    RPA.Browser.Selenium.Open Browser   ${loginLinkedin}  chrome
     Set Window Size    1300   720
     Maximize Browser Window
     Input Text    ${campo_login}  ${email}
