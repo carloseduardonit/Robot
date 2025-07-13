@@ -10,7 +10,7 @@ Resource   ../linkedin_locator.robot
 
 # | Java Developer | Java Engineer | Java Programmer | Java Software Engineer | Java Software Developer | Java Application Developer | Java Web Developer | Java Backend Developer | Java Frontend Developer | Java Full Stack Developer | Java Mobile Developer | Java Cloud Developer |
 
-${job}     Quality
+${job}     Java junior
 ${cidade}      São Paulo, 
 ${Pais}    Brasil
 ${Modalidade}    (Remoto)
@@ -19,19 +19,24 @@ ${urlJob}    https://www.linkedin.com/jobs/
 
 *** Keywords ***
 Obter termo de pesquisa 
+    [Documentation]    Retorna o termo de pesquisa para uso no campo de busca do LinkedIn.
+    ...                Caso o parâmetro ${aspas} seja True, o valor será retornado entre aspas duplas (ex: "QA Analyst").
+    ...                Caso seja False (padrão), retorna o termo limpo, sem aspas.
     [Arguments]    ${job}    ${aspas}=False
-    Return From Keyword If    "${aspas}"=="True"    "${job}"
-    Return From Keyword If    "${aspas}"=="False"    ${job}
+    [Tags]    No_Test
+    ${aspas} =   Convert To Boolean    ${aspas}
+    Return From Keyword If    ${aspas}    "${job}"
+    Return From Keyword    ${job}
 
 Pesquisar para emprego no Linkedin
-    [Documentation]    Pesquisar para emprego no Linkedin
+    [Documentation]    Pesquisa vagas no LinkedIn com base no termo de cargo desejado 
+    ...                e captura a tela dos resultados.
     [Tags]    Pesquisar_emprego
-    Wait Until Element Is Visible   locator=${h3_nome}    timeout=150
+    Wait Until Element Is Visible   locator=${h3_nome}    timeout=15
     RPA.Browser.Selenium.Go To    ${urlJob}
-    Sleep  15
-    Element Should Be Visible    ${h2_title}
+    
+    Element Should Be Visible    ${h2_title}   timeout=15
     ${Auxiliar}=  Obter termo de pesquisa    ${job}     ${true}
-    Log    message=${Auxiliar}
     Input Text    ${campoSeach}   ${Auxiliar}
     RPA.Browser.Selenium.Press Keys    ${campoSeach}    ENTER
     Sleep    15
