@@ -13,6 +13,23 @@ ${Pagina}   0
 ${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
 ${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 *** Keywords ***
+Copiar o link da vaga
+    [Documentation]    Copia o atributo href do botão de candidatura padrão da vaga, 
+    ...                se estiver visível. 
+    ...                Retorna o link se encontrado; 
+    ...                retorna None caso o botão não exista.
+    [Tags]    link   No_Test
+
+    ${resposta} =  Is Element Visible   ${botao_iniciarCandidaturaVagaPadrao}
+    IF    ${resposta}
+        ${link}=     Get Element Attribute   ${botao_iniciarCandidaturaVagaPadrao}   href
+        Log    message=Link da vaga padrão: ${link}
+        Capture Page Screenshot     Vagas de ${job} no modelo de vaga padrão.png
+        Return From Keyword    ${link}
+    ELSE
+        Log    message=Botão de candidatura padrão não encontrado
+        Return From Keyword    ${None}
+    END
 Remover aviso de segurança
     [Documentation]    Remove o aviso de segurança da vaga, se estiver presente.
     ...                Essa keyword utiliza a verificação da presença de alertas
@@ -53,6 +70,7 @@ Ja se candidatou a esta vaga?
 
 Scroll E Clica No Elemento
     [Arguments]    ${item_xpath}
+    [Tags]    Scroll    No_Test
     Execute Javascript
     ...    var el = document.evaluate("${item_xpath}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
     ...    if (el) { el.scrollIntoView({block: "center"}); }
