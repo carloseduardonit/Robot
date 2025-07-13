@@ -8,6 +8,13 @@
 ![alt text](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![alt text](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
 
+# 🤖 Estudo e Prática com Robot Framework
+
+Este repositório reúne **meus estudos, práticas e automações reais** com o uso do **Robot Framework**, voltado para **testes manuais e automatizados**, **RPA** e automação de processos como candidatura de vagas em sites como **Amazon**, **LinkedIn** e **Gupy**.
+
+Aqui você encontrará códigos reutilizáveis, casos de teste reais, experimentos com Selenium, captura de evidências e organização de fluxos para projetos futuros.
+
+
 ## Curso de Robot ![alt text](https://img.shields.io/badge/Robot%20Framework-000000.svg?style=for-the-badge&logo=Robot-Framework&logoColor=white)
 ![alt text](https://img.shields.io/badge/Udemy-A435F0.svg?style=for-the-badge&logo=Udemy&logoColor=white)
 
