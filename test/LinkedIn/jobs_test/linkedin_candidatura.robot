@@ -9,6 +9,9 @@ Resource    linkedin_questoes.robot
 *** Variables ***
 ${botao_continuarCandidatura}    //span[contains(.,'Continuar candidatura')]
 ${vaga_com_aviso}   //h2[contains(.,'Lembrete de segurança da pesquisa de vagas')]
+${Pagina}   0
+${Li_Candidatou}    //li[contains(.,'Candidatou-se')]
+${div_vagas}    //div[contains(@class,'job-card-container--viewport-tracking-')]
 *** Keywords ***
 Remover aviso de segurança
     [Documentation]    Remove o aviso de segurança da vaga, se estiver presente.
@@ -47,3 +50,11 @@ Ja se candidatou a esta vaga?
 
     Return From Keyword If   ${resposta} or ${resposta1}    ${True}
     Return From Keyword     ${False}  
+
+Scroll E Clica No Elemento
+    [Arguments]    ${item_xpath}
+    Execute Javascript
+    ...    var el = document.evaluate("${item_xpath}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    ...    if (el) { el.scrollIntoView({block: "center"}); }
+    Wait Until Element Is Visible    ${item_xpath}    timeout=10s
+    Click Element    ${item_xpath}

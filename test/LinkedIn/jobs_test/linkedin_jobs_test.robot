@@ -9,9 +9,6 @@ Resource    linkedin_candidatura_gupy.robot
 Resource    linkedin_candidatura_simplificada.robot
 Resource    linkedin_questoes.robot
 *** Variables ***
-
-
-
 ${Vaga_Fechada}    //div[@class='job-card-container__footer-item--highlighted display-block t-12 pt1'][contains(.,'Não exibiremos mais esta vaga a você.')]
 
 *** Keywords ***
@@ -72,7 +69,7 @@ Vaga desejada
 
     ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
     ${Resposta} =  Is Element Visible    ${item}
-    IF    '${Resposta}' == 'False'
+    IF    not ${Resposta}
         Acessar o cartao da Vaga    ${contador}  
         Faça a Candidatura da vaga simplificada
     END
