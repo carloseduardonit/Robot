@@ -41,9 +41,6 @@ Vagas home office simplificado
     Fechar o cartao da Vaga    5
     Sleep   1500
 
-#    Clique na filtragem do modelo Home Office
-
-# //div[@class='scaffold-layout__list ']
 Acessar o cartoes de Vagas 
     [Documentation]    Acessar o cartão da Vaga
     [Tags]   cartaosVagas
