@@ -29,27 +29,28 @@ Acesso as "${Paginas}" paginas dos cartoes de vagas e as vagas
         Capture Page Screenshot   pagina ${pagina}.png
     END
     
-Esta canditado a esta vaga?
-    [Documentation]    Esta canditado a esta vaga?
-    [Tags]    button     OK
-    [Arguments]    ${numero_item}
+A "${numero_item}"º vaga está candidatada?
+    [Documentation]    Esta candidato a esta vaga?
+    [Tags]    validação     OK
 
-    ${resposta} =  Is Element Visible   ${Li_Candidatou}[${numero_item}]
-    Return From Keyword    ${resposta}
-Esta vaga está fechada?
+    ${Candidatou} =  Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//li[contains(.,'Candidatou-se')]
+    ${resposta} =  Is Element Visible   ${Candidatou}
+    Return From Keyword IF   ${resposta}    True
+    Return From Keyword  False
+
+A "${numero_item}"º vaga está fechada?
     [Documentation]    Esta vaga está fechada
     [Tags]   Validação    OK
-    [Arguments]    ${numero_item}
-    ${resposta} =  Is Element Visible   ${Vaga_Fechada}[${numero_item}]
-    Return From Keyword    ${resposta}
+    ${nao_exibir} =  Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//div[contains(.,'Não exibiremos mais esta vaga a você.')]
+    ${resposta} =  Is Element Visible   ${nao_exibir}
+    Return From Keyword IF   ${resposta}    True
+    Return From Keyword  False
 
 Vaga desejada
     [Documentation]    Vaga desejada
     [Tags]    ON
     [Arguments]    ${contador}
-
-    ${item} =   Set Variable     ${Li_Candidatou}[${contador}]
-    ${Resposta} =  Is Element Visible    ${item}
+    ${Resposta} =  A "${contador}"º vaga está candidatada?
     IF    not ${Resposta}
         Acessar o cartao da Vaga    ${contador}  
         Faça a Candidatura da vaga simplificada

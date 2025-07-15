@@ -1,10 +1,13 @@
 *** Settings ***
+Documentation
 Library     RPA.Browser.Selenium
 #Library     Browser
 Library     String
 Resource    ../linkedin_locator.robot
 Resource    ../linkedin_suporte.robot
 Resource    linkedin_questoes.robot
+Resource    linkedin_jobs_test.robot
+
 
 *** Variables ***
 ${botao_continuarCandidatura}    //span[contains(.,'Continuar candidatura')]
@@ -50,6 +53,17 @@ Existe algum aviso de segurança?
     ${resposta} =  Is Element Visible   ${vaga_com_aviso}
     Return From Keyword    ${resposta}
 
+Fechar o cartao da Vaga
+    [Documentation]    Fecha o cartão da vaga atual, se estiver visível.
+    [Tags]    button    OK
+    [Arguments]    ${numero_item}
+    
+    ${fechar_cartao} =  Set Variable  //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//button[contains(@aria-label,'Fechar')]
+    ${resposta} =  A "${numero_item}"º vaga está candidatada?
+    IF  ${resposta}
+        Manipular Element    ${fechar_cartao}
+    END
+
 Ja se candidatou a esta vaga?
     [Documentation]    Verifica se o candidato já se candidatou a uma vaga específica.
     ...                A verificação é feita por dois indicadores:
@@ -59,16 +73,16 @@ Ja se candidatou a esta vaga?
     [Tags]    Validação    OK
     [Arguments]    ${numero_item}
 
-    ${Candidatou} =  Set Variable     //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//li[contains(.,'Candidatou-se')]
-    ${resposta} =  Is Element Visible   ${Candidatou}
+    ${resposta} =  A "${numero_item}"º vaga está candidatada?
+    ${resposta1} =  A "${numero_item}"º vaga está fechada?
 
-    ${nao_exibir} =  Set Variable    //div[contains(@class,'job-card-container--viewport-tracking-${numero_item}')]//div[contains(.,'Não exibiremos mais esta vaga a você.')]
-    ${resposta1} =  Is Element Visible   ${nao_exibir}
-
-    Return From Keyword If   ${resposta} or ${resposta1}    ${True}
-    Return From Keyword     ${False}  
+    Return From Keyword If   ${resposta} or ${resposta1}    True
+    Return From Keyword     False
 
 Scroll E Clica No Elemento
+    [Documentation]    Rola a página até o elemento especificado pelo XPath e clica nele.
+    ...                A rolagem é feita para garantir que o elemento esteja visível antes de clicar.
+    ...                Se o elemento não for encontrado, a keyword falhará.
     [Arguments]    ${item_xpath}
     [Tags]    Scroll    No_Test
     Execute Javascript

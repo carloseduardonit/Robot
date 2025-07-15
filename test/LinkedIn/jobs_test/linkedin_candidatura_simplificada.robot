@@ -18,15 +18,12 @@ Acesso as vagas
     ${numero_vaga} =  Set Variable    0
     WHILE  ${numero_vaga} < ${Vagas}
         ${teste} =     Ja se candidatou a esta vaga?      ${numero_vaga} 
-        IF   not ${teste}           
-            ${item} =   Set Variable     ${Li_Candidatou}[${numero_vaga}]
-            ${Resposta} =  Is Element Visible    ${item}
-            IF    not ${Resposta}
-                Acessar o cartao da Vaga    ${numero_vaga}  
-                Faça a Candidatura da vaga simplificada
-            END
+        Scroll E Clica No Elemento   //div[contains(@class,'job-card-container--viewport-tracking-${${Vagas}-1}')]//a
+        IF   not ${teste}
+            Acessar o cartao da Vaga    ${numero_vaga}  
+            Faça a Candidatura da vaga simplificada
         END
-       # Fechar o cartao da Vaga   ${${contador} + 1}
+        Fechar o cartao da Vaga   ${numero_vaga}
         ${Vagas} =   RPA.Browser.Selenium.Get Element Count     ${div_vagas}
         ${numero_vaga} =  Set Variable    ${${numero_vaga} + 1}
     END
@@ -64,16 +61,13 @@ Candidatar ao processo extensivo
     [Tags]    Linkedin    OK     DOC_OK
 
     ${resposta} =  Is Element Visible   ${path_progresso}
-    IF  '${resposta}' == 'True'
-        Wait Until Element Is Visible    locator=${path_progresso}   timeout=15
-        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value 
-        ${progresso_valor} =    Convert To Number   ${progresso_valor}
+    IF  ${resposta}
+        ${progresso_valor} =    Obter valor do progresso
         WHILE    ${progresso_valor} < 100
-                Manipular Element   ${botao_avancarCandidatura} 
-                Manipular Element   ${botao_revisarCandidatura}
-                Manipular Element   ${botao_enviarCandidatura}           
-            ${progresso_valor} =  Get Element Attribute    ${path_progresso}    value
-            ${progresso_valor} =  Convert To Number   ${progresso_valor}
+            Manipular Element   ${botao_avancarCandidatura} 
+            Manipular Element   ${botao_revisarCandidatura}
+            Manipular Element   ${botao_enviarCandidatura}           
+            ${progresso_valor} =  Obter valor do progresso
             Sleep    2s
         END 
         Capture Page Screenshot 
@@ -128,3 +122,15 @@ Faça a Candidatura da vaga simplificada
         Candidatar ao processo extensivo
     END
 
+Obter valor do progresso
+    [Documentation]    Obtém o valor atual da barra de progresso, se visível.
+    [Tags]    Validação    OK
+    Wait Until Element Is Visible    locator=${path_progresso}   timeout=150
+    ${resposta} =  Is Element Visible   ${path_progresso}
+    IF  ${resposta}
+        ${progresso_valor} =    Get Element Attribute    ${path_progresso}    value
+        ${progresso_valor} =    Convert To Number   ${progresso_valor}
+        Return From Keyword    ${progresso_valor}
+    ELSE
+        Return From Keyword    False
+    END
