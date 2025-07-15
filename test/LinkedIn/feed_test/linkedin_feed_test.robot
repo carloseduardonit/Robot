@@ -10,7 +10,7 @@ Resource   ../linkedin_locator.robot
 
 # | Java Developer | Java Engineer | Java Programmer | Java Software Engineer | Java Software Developer | Java Application Developer | Java Web Developer | Java Backend Developer | Java Frontend Developer | Java Full Stack Developer | Java Mobile Developer | Java Cloud Developer |
 
-${job}     Java junior
+${job}     QA
 ${cidade}      São Paulo, 
 ${Pais}    Brasil
 ${Modalidade}    (Remoto)
@@ -35,7 +35,7 @@ Pesquisar para emprego no Linkedin
     Wait Until Element Is Visible   locator=${h3_nome}    timeout=15
     RPA.Browser.Selenium.Go To    ${urlJob}
     
-    Element Should Be Visible    ${h2_title}   timeout=15
+    Element Should Be Visible    ${h2_title}   timeout=30
     ${Auxiliar}=  Obter termo de pesquisa    ${job}     ${true}
     Input Text    ${campoSeach}   ${Auxiliar}
     RPA.Browser.Selenium.Press Keys    ${campoSeach}    ENTER
