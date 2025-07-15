@@ -22,7 +22,7 @@ Close Linkedin
     [Tags]     Fechar
     RPA.Browser.Selenium.Close Browser
 
-Fechar o cartao da Vaga
+Fechar o cartao da Vaga 1
     [Documentation]    Fechar o cartão  da Vaga em porcesso de desenvolvimento
     [Tags]    cartaosVagas
     [Arguments]    ${numero_item}
