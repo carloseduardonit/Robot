@@ -8,6 +8,7 @@ Manipular Element
     [Tags]    Manipular    OK
     [Arguments]   ${elemento}
     Run Keyword And Ignore Error    Click Element If Visible  ${elemento}    
+    Sleep    3s
 
 
 Quantos elementos 
