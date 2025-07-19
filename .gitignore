@@ -17,17 +17,8 @@ geckodriver-*.log
 # Capturas de tela (geradas por testes ou uso)
 selenium-screenshot-*.png
 selenium-element-screenshot-*.png
-paginavaga-*.png
-vaga-*.png
-O nome da vaga na *º pagina na posição * das vagas.png
-Vagas de * no modelo de vaga simplificada.png
-Vagas de *.png
-Contato de *.png
-login *.png
+
 # Arquivos diversos
 *.txt
 /*.
-test/LinkedIn/linkedin.py
 
-
-O conteudo da vaga na *º pagina na posição *º das vagas.png
