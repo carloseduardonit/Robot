@@ -83,12 +83,25 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ```dos
     pip list
 ```
-###
 ### Robot Framework
+
+#### Amazon
+
 **Executar a suite de teste do Amazon**
 ``` dos
     robot .\test\Amazon\Amazon_test.robot
 ```
+**Executar o teste "Caso de teste 01: Acesso ao menu Livros" a suite de teste do Amazon**
+``` dos
+    robot --test "Caso de teste 01: Acesso ao menu Livros" .\test\Amazon\Amazon_test.robot
+```
+**Executar o teste "Casos de teste 02: Pesquisar por um produto" a suite de teste do Amazon**
+``` dos
+    robot --test "Caso de teste 01: Acesso ao menu Livros" .\test\Amazon\Amazon_test.robot
+```
+
+---
+
 **Executar a suite de teste do Linkedin**
 ``` dos
     robot .\test\LinkedIn\linkedin_test.robot
@@ -114,7 +127,6 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
       Dado  que  usuario esta no DevTools
       Quando  pressionar  a tecla "CTRL" + "F"
       Então  o  navegador  deverá exibir o buscador de Elementos
-
 ```
 
 ## 🚀 Como Executar  

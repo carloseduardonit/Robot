@@ -17,8 +17,12 @@ geckodriver-*.log
 # Capturas de tela (geradas por testes ou uso)
 selenium-screenshot-*.png
 selenium-element-screenshot-*.png
+Livros.png
+menu_livros.png
+pesquisar_produto.png
 
 # Arquivos diversos
 *.txt
 /*.
+
 

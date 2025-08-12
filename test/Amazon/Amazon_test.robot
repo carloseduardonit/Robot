@@ -14,6 +14,7 @@ Caso de teste 01: Acesso ao menu Livros
     Acessar a home page do site Amazon.com.br
     Entrar no menu "Livros"
     Capture Page Screenshot    menu_livros.png
+    
 Casos de teste 02: Pesquisar por um produto
     Acessar a home page do site Amazon.com.br
     Pesquisar por um produto    ${produto}
