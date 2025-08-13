@@ -49,6 +49,30 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ## ⚙️ Configurações
 
 ### Python
+
+
+- **Criar o Ambiente Virtual**
+``` dos
+    python -m venv .venv
+```
+- **Atualizar o Python do Ambiente Virtual**
+``` dos
+    python -m venv .venv --upgrade
+```
+- **Atualizar  dependências  do Ambiente virtual**
+``` dos
+     python -m venv .venv --upgrade-deps
+```
+
+- **Ativar o Ambiente Virtual**
+``` dos
+    .venv\Scripts\activate
+```
+- **Instalar as Dependências do Projeto**
+``` dos
+    pip install -r requirements.txt
+```
+---
 - **Verificar a  versão do Python:**
 
 ``` dos
@@ -86,7 +110,6 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ### Robot Framework
 
 #### Amazon
-
 **Executar a suite de teste do Amazon**
 ``` dos
     robot .\test\Amazon\Amazon_test.robot
@@ -101,7 +124,7 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ```
 
 ---
-
+#### Linkedin
 **Executar a suite de teste do Linkedin**
 ``` dos
     robot .\test\LinkedIn\linkedin_test.robot
@@ -110,10 +133,14 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ``` dos
     robot --test "Acessar o cartoes de Vagas" .\test\LinkedIn\linkedin_test.robot
 ```
+
+---
+#### Salesforce
 **Executar a suite de teste do Salesforce**
 ``` dos
     robot .\test\Salesforce\Salesforce_test.robot
 ```
+
 ### Atalho no Chorme
 
 ``` gherkin
@@ -141,6 +168,7 @@ Aqui você encontrará códigos reutilizáveis, casos de teste reais, experiment
 ## Biblioteca
 
 - [Biblioteca do Pytron](https://pypi.org/)
+- [Documentação do venv](https://docs.python.org/pt-br/dev/library/venv.html)
 - [Site oficial](https://robotframework.org/)
 - TruePath
   - [chromewebstore](https://chromewebstore.google.com/detail/truepath/mgjhkhhbkkldiihlajcnlfchfcmhipmn?hl=pt)
